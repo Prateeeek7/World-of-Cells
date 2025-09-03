@@ -1,0 +1,27 @@
+{
+  "name": "anatomy-cells",
+  "version": "1.0.0",
+  "private": true,
+  "description": "World of Cells – The Building Blocks of Life",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "postcss": "postcss src/index.css -o src/tailwind.output.css"
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1"
+  }
+}

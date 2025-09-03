@@ -1,0 +1,12 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.aiStats.enabled": false,
+    "editor.hideCursorInOverviewRuler": false,
+    "diffEditor.hideUnchangedRegions.enabled": false,
+    "zenMode.hideActivityBar": true,
+    "accessibility.hideAccessibleView": false,
+    "terminal.integrated.hideOnLastClosed": false,
+    "material-icon-theme.hidesExplorerArrows": false,
+    "gitlens.plusFeatures.enabled": true,
+    "python.createEnvironment.contentButton": "show"
+}
