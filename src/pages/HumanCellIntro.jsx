@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
+import OptimizedImage from "../components/OptimizedImage";
 
 const HumanCellIntro = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const HumanCellIntro = () => {
     }`}>
       {/* Left: Diagram (now a GIF) */}
       <div className="w-full md:w-1/2 flex justify-center items-center mb-6 md:mb-0 bg-transparent relative">
-        <img
+        <OptimizedImage
           src="/cell-placeholder.gif"
           alt="Human Cell Diagram"
           className="w-48 h-48 sm:w-72 sm:h-72 md:w-[32rem] md:h-[32rem] object-cover bg-transparent"

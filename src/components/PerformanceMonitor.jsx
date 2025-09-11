@@ -64,14 +64,51 @@ const PerformanceMonitor = () => {
       animationId = requestAnimationFrame(measureFPS);
     };
 
+    // Measure initial load time using modern Performance API
+    const measureLoadTime = () => {
+      const navigation = performance.getEntriesByType('navigation')[0];
+      if (navigation) {
+        const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+        setMetrics(prev => ({ ...prev, loadTime }));
+      } else if (performance.timing) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        setMetrics(prev => ({ ...prev, loadTime }));
+      }
+    };
+
+    // Measure Core Web Vitals
+    const measureWebVitals = () => {
+      // Largest Contentful Paint (LCP)
+      const lcpObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        console.log('LCP:', lastEntry.startTime);
+      });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+
+      // First Input Delay (FID)
+      const fidObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach((entry) => {
+          console.log('FID:', entry.processingStart - entry.startTime);
+        });
+      });
+      fidObserver.observe({ entryTypes: ['first-input'] });
+
+      return () => {
+        lcpObserver.disconnect();
+        fidObserver.disconnect();
+      };
+    };
+
     // Measure initial load time
-    if (performance.timing) {
-      const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-      setMetrics(prev => ({ ...prev, loadTime }));
-    }
+    measureLoadTime();
 
     // Start FPS monitoring
     measureFPS();
+
+    // Start Web Vitals monitoring
+    const cleanupWebVitals = measureWebVitals();
 
     // Memory monitoring (if available)
     const memoryInterval = setInterval(() => {
@@ -90,6 +127,7 @@ const PerformanceMonitor = () => {
     return () => {
       if (animationId) cancelAnimationFrame(animationId);
       clearInterval(memoryInterval);
+      cleanupWebVitals();
     };
   }, [isDevelopment]);
 

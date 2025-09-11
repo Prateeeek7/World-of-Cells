@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useResponsive } from "../hooks/useResponsive";
 import { useTheme } from "../contexts/ThemeContext";
 import ThemeToggle from "../components/ThemeToggle";
+import OptimizedImage from "../components/OptimizedImage";
 
 // Move cellGroups outside component to prevent recreation on every render
 const cellGroups = [
@@ -171,7 +172,7 @@ const Home = () => {
         }}
       >
         <div className={`flex items-center gap-3 ${isMobile ? "flex-row" : "flex-col"}`}>
-          <img
+          <OptimizedImage
             src="/images/logo.png"
             alt="World of Cells Logo"
             className={isMobile ? "w-20 h-12" : "w-32 h-24"}
@@ -299,7 +300,7 @@ const Home = () => {
                 : "bg-white hover:bg-gray-50 border-gray-300"
             }`}
           >
-            <img
+            <OptimizedImage
               src="/images/learn-more-cell.png"
               alt="Human Cell Diagram"
               className={`w-32 h-20 sm:w-40 sm:h-28 md:w-64 md:h-64 object-contain rounded-xl border ${
@@ -336,7 +337,7 @@ const Home = () => {
                 onClick={() => handleGroupClick(group.name)}
                 className="group w-full flex items-center justify-center gap-3 sm:gap-4 bg-[#5a2328] text-white rounded-2xl shadow-lg hover:bg-[#43181c] active:bg-[#2e0d10] focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-lg sm:text-xl font-semibold m-1 min-w-[140px] min-h-[56px] sm:min-w-[160px] sm:min-h-[64px] px-3 sm:px-4 py-2 sm:py-3"
               >
-                <img src={group.icon} alt={group.name + ' icon'} className="w-10 h-10 sm:w-12 sm:h-12 object-contain flex-shrink-0 drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" />
+                <OptimizedImage src={group.icon} alt={group.name + ' icon'} className="w-10 h-10 sm:w-12 sm:h-12 object-contain flex-shrink-0 drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" />
                 <span className="truncate">{group.name}</span>
               </button>
             ))}
@@ -351,7 +352,7 @@ const Home = () => {
           : "bg-gray-100 text-gray-700 border-gray-300"
       }`}>
         <div className="flex items-center gap-2 mb-2 md:mb-0">
-          <img src="/images/logo.png" alt="World of Cells Logo" className="w-14 h-10 mr-1" />
+          <OptimizedImage src="/images/logo.png" alt="World of Cells Logo" className="w-14 h-10 mr-1" />
           <span className="font-semibold text-lg">World of Cells</span>
         </div>
         <div className="text-sm md:text-base">

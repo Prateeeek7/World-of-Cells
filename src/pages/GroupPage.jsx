@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import OptimizedImage from "../components/OptimizedImage";
 
 // Move large data objects outside component to prevent recreation on every render
 const cellGroupTypes = {
@@ -81,7 +82,7 @@ const cellGroupTypes = {
   { name: "Smooth muscle cell (vascular)", icon: "/icons/strength.png" },
   { name: "Smooth muscle cell (visceral)", icon: "/icons/strength.png" },
   { name: "Smooth muscle cell (iris)", icon: "/icons/strength.png" },
-  { name: "Myofibroblast", icon: "/icons/strength.png" },
+  { name: "Myofibroblast-M", icon: "/icons/strength.png" },
   { name: "Myoblast", icon: "/icons/strength.png" },
   { name: "Myocyte", icon: "/icons/strength.png" },
   { name: "Myosatellite", icon: "/icons/strength.png" },
@@ -101,7 +102,7 @@ const cellGroupTypes = {
   { name: "Inner hair cell", icon: "/icons/nervous.png" },
   { name: "Outer hair cell", icon: "/icons/nervous.png" },
   { name: "Olfactory receptor neuron", icon: "/icons/nervous.png" },
-  { name: "Taste bud cell", icon: "/icons/nervous.png" },
+  { name: "Taste receptor cells", icon: "/icons/nervous.png" },
   { name: "Retinal ganglion cell", icon: "/icons/nervous.png" },
   { name: "Purkinje cell (cerebellum)", icon: "/icons/nervous.png" },
   { name: "Bipolar retinal cell", icon: "/icons/nervous.png" },
@@ -126,7 +127,7 @@ const cellGroupTypes = {
   { name: "Eosinophil", icon: "/icons/blood.png" },
   { name: "Basophil", icon: "/icons/blood.png" },
   { name: "Monocyte", icon: "/icons/blood.png" },
-  { name: "Hematopoietic stem cell", icon: "/icons/blood.png" },
+  { name: "Lymphoblast", icon: "/icons/blood.png" },
   { name: "Erythroblast", icon: "/icons/blood.png" },
   { name: "Reticulocyte", icon: "/icons/blood.png" },
   { name: "Megakaryocyte", icon: "/icons/blood.png" },
@@ -160,15 +161,15 @@ const cellGroupTypes = {
   "connective": [
   { name: "Fibroblast", icon: "/icons/connective.png" },
   { name: "Corneal fibroblasts (corneal keratocytes)", icon: "/icons/connective.png" },
-  { name: "Adipocyte (white)", icon: "/icons/connective.png" },
-  { name: "Adipocyte (brown)", icon: "/icons/connective.png" },
+  { name: "White Adipocyte", icon: "/icons/connective.png" },
+  { name: "Brown Adipocyte", icon: "/icons/connective.png" },
   { name: "Chondrocyte", icon: "/icons/connective.png" },
   { name: "Osteoblast", icon: "/icons/connective.png" },
   { name: "Osteocyte", icon: "/icons/connective.png" },
   { name: "Preadipocyte", icon: "/icons/connective.png" },
   { name: "Podocyte", icon: "/icons/connective.png" },
   { name: "Stromal cell", icon: "/icons/connective.png" },
-  { name: "Myofibroblast", icon: "/icons/connective.png" },
+  { name: "Myofibroblast-C", icon: "/icons/connective.png" },
   { name: "Chondroprogenitor cell", icon: "/icons/connective.png" },
   { name: "Adventitial fibroblast", icon: "/icons/connective.png" },
   { name: "Dermal fibroblast", icon: "/icons/connective.png" },
@@ -233,7 +234,7 @@ const cellGroupTypes = {
     { name: "Gonadotrope", icon: "/icons/secretory.png" },
     { name: "Somatotrope", icon: "/icons/secretory.png" },
     { name: "Corticotrope", icon: "/icons/secretory.png" },
-    { name: "Lactotrope", icon: "/icons/secretory.png" },
+    { name: "Acidophilic cells", icon: "/icons/secretory.png" },
     { name: "Thyrotrope", icon: "/icons/secretory.png" },
     { name: "Juxtaglomerular cell", icon: "/icons/secretory.png" },
     { name: "Macula densa cell", icon: "/icons/secretory.png" },
@@ -242,46 +243,38 @@ const cellGroupTypes = {
     { name: "Zona glomerulosa cell", icon: "/icons/secretory.png" },
     { name: "Zona fasciculata cell", icon: "/icons/secretory.png" },
     { name: "Zona reticularis cell", icon: "/icons/secretory.png" },
-    { name: "Salivary gland acinar cell", icon: "/icons/secretory.png" },
-    { name: "Salivary gland duct cell", icon: "/icons/secretory.png" }
+    { name: "Salivary gland's acinar cell", icon: "/icons/secretory.png" },
+    { name: "Salivary gland's duct cell", icon: "/icons/secretory.png" }
   ],
  "immune": [
   { name: "Macrophage", icon: "/icons/immune1.png" },
-  { name: "Dendritic cell", icon: "/icons/immune1.png" },
-  { name: "B cell", icon: "/icons/immune1.png" },
-  { name: "Plasma cell", icon: "/icons/immune1.png" },
-  { name: "CD4+ T cell", icon: "/icons/immune1.png" },
-  { name: "CD8+ T cell", icon: "/icons/immune1.png" },
-  { name: "Regulatory T cell", icon: "/icons/immune1.png" },
-  { name: "Natural killer (NK) cell", icon: "/icons/immune1.png" },
-  { name: "Mast cell", icon: "/icons/immune1.png" },
+  { name: "Dendritic Cell", icon: "/icons/immune1.png" },
+  { name: "B Cell", icon: "/icons/immune1.png" },
+  { name: "Plasma Cell", icon: "/icons/immune1.png" },
+  { name: "CD4+ T Cell", icon: "/icons/immune1.png" },
+  { name: "CD8+ T Cell", icon: "/icons/immune1.png" },
+  { name: "Regulatory T Cell", icon: "/icons/immune1.png" },
+  { name: "Natural Killer (NK) Cell", icon: "/icons/immune1.png" },
+  { name: "Mast Cell", icon: "/icons/immune1.png" },
   { name: "Microglia", icon: "/icons/immune1.png" },
-  { name: "Kupffer cell", icon: "/icons/immune1.png" },
-  { name: "Langerhans cell", icon: "/icons/immune1.png" },
-  { name: "Follicular dendritic cell", icon: "/icons/immune1.png" },
-  { name: "Gamma-delta T cell", icon: "/icons/immune1.png" },
-  { name: "MAIT cell", icon: "/icons/immune1.png" },
-  { name: "Innate lymphoid cell (ILC1/2/3)", icon: "/icons/immune1.png" },
-  { name: "Tissue-resident memory T cell", icon: "/icons/immune1.png" },
-  { name: "Effector memory T cell", icon: "/icons/immune1.png" },
-  { name: "Plasmacytoid dendritic cell", icon: "/icons/immune1.png" },
-  { name: "Marginal zone B cell", icon: "/icons/immune1.png" },
-  { name: "Memory B cell", icon: "/icons/immune1.png" },
-  { name: "Naive B cell", icon: "/icons/immune1.png" },
-  { name: "CX3CR1+ monocyte", icon: "/icons/immune1.png" },
-  { name: "Ly6C+ monocyte", icon: "/icons/immune1.png" },
-  { name: "Immature dendritic cell", icon: "/icons/immune1.png" },
-  { name: "Decidual NK cell", icon: "/icons/immune1.png" },
-  { name: "T follicular helper (Tfh) cell", icon: "/icons/immune1.png" },
-  { name: "CXCR5+ T cell", icon: "/icons/immune1.png" },
-  { name: "CCR7+ T cell", icon: "/icons/immune1.png" },
-  { name: "Hofbauer cell", icon: "/icons/immune1.png" },
-  { name: "Alveolar macrophage", icon: "/icons/immune1.png" },
-  { name: "Peritoneal macrophage", icon: "/icons/immune1.png" },
-  { name: "Osteoclast", icon: "/icons/immune1.png" },
-  { name: "Mesangial cell (immune function)", icon: "/icons/immune1.png" },
-  { name: "Pericyte (immune modulation)", icon: "/icons/immune1.png" },
-  { name: "Myeloid-derived suppressor cell (MDSC)", icon: "/icons/immune1.png" }
+  { name: "Kupffer Cell", icon: "/icons/immune1.png" },
+  { name: "Langerhans Cell", icon: "/icons/immune1.png" },
+  { name: "Gamma delta T Cell", icon: "/icons/immune1.png" },
+  { name: "Mucosal Associated Invariant T (MAIT) Cell", icon: "/icons/immune1.png" },
+  { name: "Tissue resident memory T cell", icon: "/icons/immune1.png" },
+  { name: "Plasmacytoid Dendritic Cell (pDC)", icon: "/icons/immune1.png" },
+  { name: "Marginal Zone B Cell (MZ B Cell)", icon: "/icons/immune1.png" },
+  { name: "Memory B Cell", icon: "/icons/immune1.png" },
+  { name: "Naïve B Cell", icon: "/icons/immune1.png" },
+  { name: "CX3CR1+ Monocyte", icon: "/icons/immune1.png" },
+  { name: "Ly6C+ Monocyte", icon: "/icons/immune1.png" },
+  { name: "Immature Dendritic Cell", icon: "/icons/immune1.png" },
+  { name: "Decidual NK Cell", icon: "/icons/immune1.png" },
+  { name: "T Follicular Helper (Tfh) Cell", icon: "/icons/immune1.png" },
+  { name: "CXCR5+ T Cell", icon: "/icons/immune1.png" },
+  { name: "CCR7+ T Cell", icon: "/icons/immune1.png" },
+  { name: "Hofbauer Cell", icon: "/icons/immune1.png" },
+  { name: "Alveolar Macrophage", icon: "/icons/immune1.png" }
 ]
 
 };
@@ -356,7 +349,16 @@ const GroupPage = () => {
       <div className="relative z-10 flex flex-col items-center w-full">
         <h1 className="text-4xl font-bold mb-4 capitalize drop-shadow-lg">{groupName} Cells</h1>
         <div className="mb-4 text-lg max-w-6xl text-center">
-          <ReactMarkdown>{description}</ReactMarkdown>
+          <ReactMarkdown 
+            components={{
+              strong: ({children}) => <strong className="font-bold">{children}</strong>,
+              em: ({children}) => <em className="italic">{children}</em>,
+              code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+              p: ({children}) => <p className="mb-2">{children}</p>
+            }}
+          >
+            {description}
+          </ReactMarkdown>
         </div>
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl mt-4 mb-8 justify-center">
           {cellTypes.length === 0 ? (
@@ -370,7 +372,11 @@ const GroupPage = () => {
                 onClick={() => handleCellClick(cell.name)}
                 className="group w-full flex items-center justify-center gap-3 bg-[#5a2328] text-white rounded-2xl shadow-lg hover:bg-[#43181c] active:bg-[#2e0d10] focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-lg font-semibold min-h-[56px] px-3 py-2"
               >
-                <img src={cell.icon} alt={cell.name + ' icon'} className="w-10 h-10 object-contain flex-shrink-0 drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" />
+                <OptimizedImage 
+                  src={cell.icon} 
+                  alt={cell.name + ' icon'} 
+                  className="w-10 h-10 object-contain flex-shrink-0 drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" 
+                />
                 <span className="truncate">{cell.name}</span>
               </button>
             ))

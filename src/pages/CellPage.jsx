@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import cellsData from "../data/cells.json";
 import { useTheme } from "../contexts/ThemeContext";
+import OptimizedImage from "../components/OptimizedImage";
 
 const CellPage = () => {
   const { cellName } = useParams();
@@ -17,7 +19,51 @@ const CellPage = () => {
 
   // Memoize the cell search to prevent recalculation on every render
   const foundCell = useMemo(() => {
-    return cellsData.find(c => c.name.toLowerCase() === normalizedCellName);
+    // First try exact match
+    let cell = cellsData.find(c => c.name.toLowerCase() === normalizedCellName);
+    
+    // If not found, try more flexible matching
+    if (!cell) {
+      cell = cellsData.find(c => {
+        const cellNameLower = c.name.toLowerCase();
+        const searchName = normalizedCellName;
+        
+        // Handle special characters and variations
+        const normalizedCellNameFlexible = cellNameLower
+          .replace(/[()]/g, '') // Remove parentheses
+          .replace(/\s+/g, ' ') // Normalize spaces
+          .trim();
+        
+        const searchNameFlexible = searchName
+          .replace(/[()]/g, '') // Remove parentheses
+          .replace(/\s+/g, ' ') // Normalize spaces
+          .trim();
+        
+        // Additional check: handle the case where URL removes parentheses but JSON keeps them
+        // Try matching by removing all special characters and comparing core words
+        const coreWords1 = normalizedCellNameFlexible
+          .replace(/[^a-z0-9\s]/g, '') // Remove all special chars except spaces
+          .split(/\s+/)
+          .filter(word => word.length > 0)
+          .sort()
+          .join(' ');
+          
+        const coreWords2 = searchNameFlexible
+          .replace(/[^a-z0-9\s]/g, '') // Remove all special chars except spaces
+          .split(/\s+/)
+          .filter(word => word.length > 0)
+          .sort()
+          .join(' ');
+        
+        // Try both methods
+        const exactMatch = normalizedCellNameFlexible === searchNameFlexible;
+        const coreMatch = coreWords1 === coreWords2;
+        
+        return exactMatch || coreMatch;
+      });
+    }
+    
+    return cell;
   }, [normalizedCellName]);
 
   useEffect(() => {
@@ -67,7 +113,7 @@ const CellPage = () => {
         <h1 className="text-4xl font-bold mb-4 capitalize text-center">{cell.name}</h1>
         {cell.image && (
           <div className="flex justify-center">
-            <img
+            <OptimizedImage
               src={cell.image}
               alt={cell.name + ' diagram'}
               className="w-96 h-96 md:w-[32rem] md:h-[32rem] object-contain rounded shadow mb-10"
@@ -77,9 +123,20 @@ const CellPage = () => {
         <div className="max-w-[96rem] space-y-10 px-2 md:px-10 lg:px-20 mx-auto">
           <section>
             <h2 className="text-2xl font-semibold mb-2">Embryonic Origin</h2>
-            <p className={`text-lg md:text-xl leading-relaxed ${
+            <div className={`text-lg md:text-xl leading-relaxed ${
               isDarkMode ? "text-gray-200" : "text-gray-700"
-            }`}>{cell.embryonic_origin || 'Unknown'}</p>
+            }`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.embryonic_origin || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Discovery</h2>
@@ -91,39 +148,138 @@ const CellPage = () => {
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Location</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.location || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.location || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Function</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.function || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.function || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Life Span</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.life_span || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.life_span || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Adherent</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.adherent || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.adherent || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Effect of Ageing</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.effect_of_ageing || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.effect_of_ageing || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Related Disease</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.related_disease || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.related_disease || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">History of Evolution</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.history_of_evolution || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.history_of_evolution || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Relevance to Tissue Development</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.relevance_to_tissue_development || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.relevance_to_tissue_development || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
           <section>
             <h2 className="text-2xl font-semibold mb-2">Tissue Engineering Research</h2>
-            <p className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>{cell.tissue_engineering_research || 'Unknown'}</p>
+            <div className={`${isDarkMode ? "text-gray-200" : "text-gray-700"}`}>
+              <ReactMarkdown 
+                components={{
+                  strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                  em: ({children}) => <em className="italic">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
+                  p: ({children}) => <p className="mb-2">{children}</p>
+                }}
+              >
+                {cell.tissue_engineering_research || 'Unknown'}
+              </ReactMarkdown>
+            </div>
           </section>
 
           {/* References Section */}
