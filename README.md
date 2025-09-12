@@ -274,4 +274,4 @@ For questions, issues, or contributions:
 
 **Made with ❤️ for science education and research - Pratik Kumar**
 
-*Last updated: December 2025*
+*Last updated: September 2025*
