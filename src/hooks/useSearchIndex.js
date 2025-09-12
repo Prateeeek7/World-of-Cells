@@ -8,13 +8,15 @@ export const useSearchIndex = (data, searchFields = ['name']) => {
     data.forEach((item, idx) => {
       searchFields.forEach(field => {
         const value = item[field];
-        if (value) {
+        if (value && typeof value === 'string') {
           const words = value.toLowerCase().split(/\s+/);
           words.forEach(word => {
-            if (!index.has(word)) {
-              index.set(word, new Set());
+            if (word.length > 0) {
+              if (!index.has(word)) {
+                index.set(word, new Set());
+              }
+              index.get(word).add(idx);
             }
-            index.get(word).add(idx);
           });
         }
       });

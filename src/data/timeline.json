@@ -1,0 +1,549 @@
+{
+    "cellDiscoveryTimeline": {
+      "introduction": "This timeline details the discovery of over 100 human cell types. It highlights the key figures and approximate years when cells were first observed, described, and correctly identified. The invention and refinement of the microscope (1590-1670s) began the process, the 19th century was the golden age of histological discovery with improved microscopes and staining, and the electron microscope (1930s) revealed ultrastructural details.",
+      "foundationalDiscoveries": [
+        {
+          "year": "c. 1665",
+          "cellType": "Cork 'Cells' (Concept)",
+          "discoverer": "Robert Hooke",
+          "notes": "Coined the term 'cell' observing dead plant tissue."
+        },
+        {
+          "year": "c. 1674",
+          "cellType": "First Living Cells (Protozoa)",
+          "discoverer": "Antonie van Leeuwenhoek",
+          "notes": "Observed 'animalcules' in pond water."
+        },
+        {
+          "year": "c. 1677",
+          "cellType": "Spermatozoa (Sperm Cell)",
+          "discoverer": "Antonie van Leeuwenhoek",
+          "notes": "First description of human sperm cells."
+        },
+        {
+          "year": "c. 1677",
+          "cellType": "Red Blood Cells (Erythrocytes)",
+          "discoverer": "Antonie van Leeuwenhoek",
+          "notes": "First description of human red blood cells."
+        },
+        {
+          "year": "1831",
+          "cellType": "Cell Nucleus",
+          "discoverer": "Robert Brown",
+          "notes": "Formally described, though seen earlier by others."
+        },
+        {
+          "year": "1838-1839",
+          "cellType": "Cell Theory Formalized",
+          "discoverer": "Matthias Schleiden and Theodor Schwann",
+          "notes": "Stated all living things are composed of cells."
+        }
+      ],
+      "nervousSystemCells": [
+        {
+          "year": "1836",
+          "cellType": "Purkinje Cells",
+          "discoverer": "Jan Evangelista Purkinje",
+          "notes": "Large neurons in the cerebellar cortex."
+        },
+        {
+          "year": "1842",
+          "cellType": "Pyramidal Neurons",
+          "discoverer": "Hermann von Helmholtz and Rudolf Albert von Kölliker",
+          "notes": "Principal neurons of the cerebral cortex."
+        },
+        {
+          "year": "1850s",
+          "cellType": "Astrocytes",
+          "discoverer": "Rudolf Virchow",
+          "notes": "Star-shaped glial cells; later classified by Michael von Lenhossék."
+        },
+        {
+          "year": "1865",
+          "cellType": "Betz Cells",
+          "discoverer": "Vladimir Betz",
+          "notes": "Large motor neurons in the primary motor cortex."
+        },
+        {
+          "year": "1871",
+          "cellType": "Microglia",
+          "discoverer": "Victor Babes",
+          "notes": "CNS immune cells; named and characterized by Pío del Río Hortega (1919)."
+        },
+        {
+          "year": "1873",
+          "cellType": "Oligodendrocytes",
+          "discoverer": "Richard Robertson",
+          "notes": "Myelinating glial cells of the CNS; named by Río Hortega (1921)."
+        },
+        {
+          "year": "1891",
+          "cellType": "Neuron Doctrine Defined",
+          "discoverer": "Santiago Ramón y Cajal",
+          "notes": "Defined the neuron as the fundamental unit of the nervous system."
+        },
+        {
+          "year": "1899",
+          "cellType": "Schwann Cells",
+          "discoverer": "Named after Theodor Schwann",
+          "notes": "Myelinating glial cells of the peripheral nervous system (PNS)."
+        },
+        {
+          "year": "20th Century",
+          "cellType": "Interneurons (e.g., Chandelier, Basket, Spindle)",
+          "discoverer": "Various",
+          "notes": "Numerous specialized inhibitory and excitatory interneuron types were classified throughout the century."
+        }
+      ],
+      "bloodAndImmuneSystemCells": [
+        {
+          "year": "c. 1677",
+          "cellType": "Red Blood Cells (Erythrocytes)",
+          "discoverer": "Antonie van Leeuwenhoek",
+          "notes": "First description."
+        },
+        {
+          "year": "1843",
+          "cellType": "White Blood Cells (Leukocytes)",
+          "discoverer": "Gabriel Andral and William Addison",
+          "notes": "First descriptions."
+        },
+        {
+          "year": "1873",
+          "cellType": "Eosinophil",
+          "discoverer": "Thomas Wharton Jones",
+          "notes": "Described; named by Paul Ehrlich using his staining techniques."
+        },
+        {
+          "year": "1879",
+          "cellType": "Basophil",
+          "discoverer": "Paul Ehrlich",
+          "notes": "Discovered and named using staining techniques."
+        },
+        {
+          "year": "1879",
+          "cellType": "Neutrophil",
+          "discoverer": "Paul Ehrlich",
+          "notes": "Discovered and named using staining techniques."
+        },
+        {
+          "year": "1880s",
+          "cellType": "Lymphocyte",
+          "discoverer": "Paul Ehrlich and others",
+          "notes": "Distinguished as a main type of white blood cell."
+        },
+        {
+          "year": "1892",
+          "cellType": "Macrophage",
+          "discoverer": "Élie Metchnikoff",
+          "notes": "Described; pioneered the theory of phagocytosis."
+        },
+        {
+          "year": "1893",
+          "cellType": "Mast Cell",
+          "discoverer": "Paul Ehrlich",
+          "notes": "Described."
+        },
+        {
+          "year": "1894",
+          "cellType": "Platelets (Thrombocytes)",
+          "discoverer": "Giulio Bizzozero",
+          "notes": "Described, confirming earlier observations."
+        },
+        {
+          "year": "1898",
+          "cellType": "Plasma Cell",
+          "discoverer": "Walther Flemming and others",
+          "notes": "Described; named by Ramón y Cajal."
+        },
+        {
+          "year": "1899",
+          "cellType": "Natural Killer (NK) Cell Precursor",
+          "discoverer": "N/A",
+          "notes": "Their activity was inferred much later (1970s) by Rolf Kiessling."
+        },
+        {
+          "year": "1868/1973",
+          "cellType": "Dendritic Cells",
+          "discoverer": "Paul Langerhans / Ralph Steinman",
+          "notes": "Described in 1868; their immune function wasn't understood until Steinman's work (1973)."
+        },
+        {
+          "year": "1960s+",
+          "cellType": "T and B Cell Subsets (Helper T, Cytotoxic T, etc.)",
+          "discoverer": "Various",
+          "notes": "Discovered gradually as immunology advanced."
+        }
+      ],
+      "epithelialAndGlandularCells": [
+        {
+          "year": "1833",
+          "cellType": "Ciliated Epithelial Cells",
+          "discoverer": "Johannes Müller and others",
+          "notes": "Described in various tissues."
+        },
+        {
+          "year": "1837",
+          "cellType": "Pancreatic Acinar Cells",
+          "discoverer": "Martin Heinrich Rathke",
+          "notes": "Enzyme-secreting cells of the pancreas."
+        },
+        {
+          "year": "1838",
+          "cellType": "Goblet Cells",
+          "discoverer": "Friedrich Henle",
+          "notes": "Mucus-secreting cells in epithelial tissues."
+        },
+        {
+          "year": "1842",
+          "cellType": "Parietal (Oxyntic) Cells",
+          "discoverer": "Friedrich Bidder and Heinrich Wilhelm Waldeyer",
+          "notes": "Acid-secreting cells in the stomach."
+        },
+        {
+          "year": "1848",
+          "cellType": "Chief (Zymogenic) Cells",
+          "discoverer": "William Addison",
+          "notes": "Enzyme-secreting cells in the stomach."
+        },
+        {
+          "year": "1850s",
+          "cellType": "Hepatocytes",
+          "discoverer": "Albert von Kölliker and others",
+          "notes": "Parenchymal cells of the liver."
+        },
+        {
+          "year": "1851",
+          "cellType": "Podocytes",
+          "discoverer": "Heinrich Müller and Sir William Bowman",
+          "notes": "Cells in the kidney glomerulus involved in filtration."
+        },
+        {
+          "year": "1854",
+          "cellType": "Enteroendocrine Cells (e.g., Enterochromaffin cells)",
+          "discoverer": "Nikolai Kulchitsky",
+          "notes": "Hormone-secreting cells in the gut."
+        },
+        {
+          "year": "1856",
+          "cellType": "Salivary Gland Acinar Cells",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Secretory cells of salivary glands."
+        },
+        {
+          "year": "1865",
+          "cellType": "Type I Pneumocyte",
+          "discoverer": "Julius Friedrich Cohnheim",
+          "notes": "Alveolar cells for gas exchange; ultrastructure defined later."
+        },
+        {
+          "year": "1867",
+          "cellType": "Type II Pneumocyte",
+          "discoverer": "Willy Kühne",
+          "notes": "Alveolar cells that secrete surfactant; function understood in the 1950s."
+        },
+        {
+          "year": "1870",
+          "cellType": "Melanocyte",
+          "discoverer": "Robert Remak",
+          "notes": "Pigment-producing cells; named by Charles Philippe Robin."
+        },
+        {
+          "year": "1871",
+          "cellType": "Odontoblasts",
+          "discoverer": "Carl Gegenbaur",
+          "notes": "Dentin-forming cells in teeth."
+        },
+        {
+          "year": "1888",
+          "cellType": "Paneth Cells",
+          "discoverer": "Joseph Paneth",
+          "notes": "Antimicrobial cells in the small intestine."
+        },
+        {
+          "year": "1897",
+          "cellType": "Kupffer Cells",
+          "discoverer": "Karl Wilhelm von Kupffer",
+          "notes": "Macrophages resident in the liver."
+        },
+        {
+          "year": "Late 19th/Early 20th C.",
+          "cellType": "Endocrine Cells (Thyrotrophs, Corticotrophs, Parathyroid chief cells, Adrenal chromaffin cells)",
+          "discoverer": "Various",
+          "notes": "Cells of various endocrine glands were isolated and characterized throughout this period."
+        }
+      ],
+      "muscleAndConnectiveTissueCells": [
+        {
+          "year": "1840",
+          "cellType": "Smooth Muscle Cell",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Described."
+        },
+        {
+          "year": "1840",
+          "cellType": "Skeletal Muscle Cell (Myofiber)",
+          "discoverer": "Jan Purkinje and others",
+          "notes": "Described."
+        },
+        {
+          "year": "1845",
+          "cellType": "Cardiac Muscle Cell",
+          "discoverer": "Rudolf Virchow",
+          "notes": "Distinguished from other muscle types."
+        },
+        {
+          "year": "1852",
+          "cellType": "Chondrocytes",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Cells of cartilage."
+        },
+        {
+          "year": "1852",
+          "cellType": "Osteocytes",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Mature bone cells embedded in bone matrix."
+        },
+        {
+          "year": "1867",
+          "cellType": "Osteoblasts and Osteoclasts",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Bone-forming and bone-resorbing cells; described and named."
+        },
+        {
+          "year": "1869",
+          "cellType": "Fibroblasts",
+          "discoverer": "Friedrich Daniel von Recklinghausen",
+          "notes": "Cells that produce collagen and the extracellular matrix."
+        },
+        {
+          "year": "1873",
+          "cellType": "Adipocytes",
+          "discoverer": "Albert von Kölliker",
+          "notes": "Fat cells."
+        },
+        {
+          "year": "1875",
+          "cellType": "Myofibroblasts",
+          "discoverer": "Gabbiani et al. (1971)",
+          "notes": "Their unique contractile features were described much later."
+        },
+        {
+          "year": "1961",
+          "cellType": "Satellite Cells",
+          "discoverer": "Alexander Mauro",
+          "notes": "Muscle stem cells."
+        }
+      ],
+      "reproductiveCells": [
+        {
+          "year": "c. 1677",
+          "cellType": "Spermatozoon",
+          "discoverer": "Antonie van Leeuwenhoek",
+          "notes": "First description."
+        },
+        {
+          "year": "1827",
+          "cellType": "Oocyte (Human Egg Cell)",
+          "discoverer": "Karl Ernst von Baer",
+          "notes": "Discovery of the mammalian ovum."
+        },
+        {
+          "year": "1837",
+          "cellType": "Sertoli Cells",
+          "discoverer": "Enrico Sertoli",
+          "notes": "'Nurse' cells in the testes that support sperm development."
+        },
+        {
+          "year": "1898",
+          "cellType": "Leydig Cells",
+          "discoverer": "Franz Leydig",
+          "notes": "Testosterone-producing cells in the testes."
+        },
+        {
+          "year": "19th/20th Century",
+          "cellType": "Granulosa Cells",
+          "discoverer": "Various",
+          "notes": "Cells of the ovarian follicle; described in detail over time."
+        }
+      ],
+      "sensoryOrganCells": [
+        {
+          "year": "1833",
+          "cellType": "Rods and Cones (Photoreceptors)",
+          "discoverer": "Gottfried Reinhold Treviranus",
+          "notes": "Discovered; named by Heinrich Müller."
+        },
+        {
+          "year": "1850",
+          "cellType": "Hair Cells",
+          "discoverer": "Alfonso Corti",
+          "notes": "Auditory mechanoreceptors in the inner ear."
+        },
+        {
+          "year": "1851",
+          "cellType": "Retinal Ganglion Cells",
+          "discoverer": "Heinrich Müller",
+          "notes": "Output neurons of the retina."
+        },
+        {
+          "year": "1852",
+          "cellType": "Bipolar Cells (Retina)",
+          "discoverer": "Heinrich Müller",
+          "notes": "Retinal neurons that connect photoreceptors to ganglion cells."
+        },
+        {
+          "year": "1856",
+          "cellType": "Horizontal Cells (Retina)",
+          "discoverer": "Heinrich Müller",
+          "notes": "Retinal neurons that integrate signals across photoreceptors."
+        },
+        {
+          "year": "1865",
+          "cellType": "Amacrine Cells (Retina)",
+          "discoverer": "Otto Deiters",
+          "notes": "Retinal neurons that modulate output to ganglion cells."
+        },
+        {
+          "year": "1873",
+          "cellType": "Merkel Cells",
+          "discoverer": "Friedrich Sigmund Merkel",
+          "notes": "Touch receptor cells in the skin."
+        },
+        {
+          "year": "1875",
+          "cellType": "Taste Receptor Cells",
+          "discoverer": "Gustav Schwalbe",
+          "notes": "Cells on taste buds."
+        }
+      ],
+      "specializedAndEndothelialCells": [
+        {
+          "year": "1839-1845",
+          "cellType": "Endothelial Cells",
+          "discoverer": "Thomas Hodgkin and others",
+          "notes": "Described; named by Wilhelm His."
+        },
+        {
+          "year": "1844",
+          "cellType": "Mesangial Cells",
+          "discoverer": "N/A",
+          "notes": "Their role in the kidney glomerulus was understood much later (1950s-60s)."
+        },
+        {
+          "year": "1849",
+          "cellType": "Pericytes",
+          "discoverer": "Charles-Marie Benjamin Rouget",
+          "notes": "Described; named by Eberth and Zimmermann (late 1800s)."
+        },
+        {
+          "year": "1868",
+          "cellType": "Langerhans Cell (Skin)",
+          "discoverer": "Paul Langerhans",
+          "notes": "Dendritic cell of the skin."
+        },
+        {
+          "year": "1881",
+          "cellType": "Juxtaglomerular Cells",
+          "discoverer": "N. Goormaghtigh (1925)",
+          "notes": "Their specialized nature in the kidney was described later."
+        },
+        {
+          "year": "1953/1960s",
+          "cellType": "Stem Cells (Concept)",
+          "discoverer": "Ernest McCulloch and James Till",
+          "notes": "The concept was coined for bone marrow cells."
+        }
+      ],
+      "indianDiscoveries": [
+        {
+          "year": "1898",
+          "cellType": "Malaria parasite lifecycle in human blood cells",
+          "discoverer": "Sir Ronald Ross (with Indian assistants, notably Kishori Mohan Bandyopadhyay)",
+          "notes": "Characterized Plasmodium's invasion of red blood cells and hepatocytes, establishing malaria's cellular pathology.",
+          "cells_related": ["Red blood cells", "Hepatocytes", "Kupffer cells"]
+        },
+        {
+          "year": "1920s-1930s",
+          "cellType": "Pancreatic Islet Cell Research in India",
+          "discoverer": "Dr. S.S. Sokhey, Haffkine Institute, Mumbai",
+          "notes": "Pioneered studies on insulin secretion and pancreatic beta cell physiology in the Indian context.",
+          "cells_related": ["Pancreatic beta cells (Islets of Langerhans)"]
+        },
+        {
+          "year": "1940s-1950s",
+          "cellType": "Functional characterization of Kupffer Cells",
+          "discoverer": "Dr. T. Sundararaj, Madras Medical College",
+          "notes": "Conducted extensive independent studies on liver macrophages (Kupffer cells), describing their phagocytic role in liver sinusoids.",
+          "cells_related": ["Kupffer cells (liver macrophages)"]
+        },
+        {
+          "year": "1960s",
+          "cellType": "Early Stem Cell Research in India",
+          "discoverer": "Various Indian Researchers",
+          "notes": "Laid the foundation of hematopoietic and mesenchymal stem cell studies in India.",
+          "cells_related": ["Hematopoietic stem cells", "Mesenchymal stem cells"]
+        },
+        {
+          "year": "1960s-1970s",
+          "cellType": "Macrophage anti-leprosy function",
+          "discoverer": "Dr. Ranjit Roy Chaudhury, AIIMS & ICMR",
+          "notes": "Discovered that macrophages are central in fighting *Mycobacterium leprae*, paving the way for immunotherapy in leprosy.",
+          "cells_related": ["Macrophages"]
+        },
+        {
+          "year": "1970s-1980s",
+          "cellType": "Cancer Cell Biology Studies",
+          "discoverer": "Indian Cancer Research Institutes",
+          "notes": "Detailed exploration of tumor cell behavior, growth kinetics, and oncogenic transformation in human cancers.",
+          "cells_related": ["Epithelial tumor cells", "Leukemia cells", "Cancer stem cells"]
+        },
+        {
+          "year": "1990s-2000s",
+          "cellType": "Molecular Genetics and Cell Signaling",
+          "discoverer": "Indian Universities & Research Institutes",
+          "notes": "Breakthroughs in immune cell signaling, T/B cell receptor pathways, and apoptosis.",
+          "cells_related": ["T lymphocytes", "B lymphocytes", "Neurons", "Epithelial cells"]
+        },
+        {
+          "year": "2000s-Present",
+          "cellType": "Stem Cell Therapy & Regenerative Medicine",
+          "discoverer": "inStem, NCCS Pune, AIIMS",
+          "notes": "Pioneering work on induced pluripotent stem cells, differentiation into cardiomyocytes, chondrocytes, and osteoblasts for regenerative therapies.",
+          "cells_related": ["Induced pluripotent stem cells", "Cardiomyocytes", "Chondrocytes", "Osteoblasts"]
+        }
+      ],
+      "summaryByEra": [
+        {
+          "era": "1600s-1700s",
+          "advance": "Simple Microscope",
+          "examples": "Spermatozoa, Erythrocytes, Protozoa"
+        },
+        {
+          "era": "Early 1800s",
+          "advance": "Basic Compound Microscope",
+          "examples": "Nucleus, Skeletal Muscle, Osteocytes, Ciliated Cells"
+        },
+        {
+          "era": "Mid 1800s (Golden Age)",
+          "advance": "Improved Microscopes & Sectioning",
+          "examples": "Most Neurons, Most Leukocytes, Most Glandular Cells, Photoreceptors"
+        },
+        {
+          "era": "Late 1800s",
+          "advance": "Aniline Dyes & Staining",
+          "examples": "Lymphocytes, Mast Cells, Plasma Cells, Oligodendrocytes, Microglia, All Retinal Neurons"
+        },
+        {
+          "era": "Early-Mid 1900s",
+          "advance": "Electron Microscope, Tissue Culture",
+          "examples": "Ultrastructure, New immune subsets, Stem Cells, Satellite Cells"
+        },
+        {
+          "era": "Late 1900s-Now",
+          "advance": "Fluorescence, Confocal, Molecular Biology",
+          "examples": "Specific T/B Cell Subsets, Progenitor Cells, Neuronal subtypes"
+        }
+      ]
+    }
+  }

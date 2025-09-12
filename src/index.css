@@ -2,6 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import highlight.js theme */
+@import 'highlight.js/styles/github.css';
+
+/* Dark mode highlight.js theme */
+@media (prefers-color-scheme: dark) {
+  @import 'highlight.js/styles/github-dark.css';
+}
+
+/* Custom chatbot animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(37, 99, 235, 0.4);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.chatbot-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.chatbot-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.chatbot-bounce {
+  animation: bounce-in 0.6s ease-out;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .chatbot-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .chatbot-pulse {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  
+  /* Reduce animation intensity on mobile */
+  .chatbot-float:hover {
+    animation-play-state: paused;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 } 

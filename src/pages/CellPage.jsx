@@ -4,10 +4,12 @@ import ReactMarkdown from "react-markdown";
 import cellsData from "../data/cells.json";
 import { useTheme } from "../contexts/ThemeContext";
 import OptimizedImage from "../components/OptimizedImage";
+import CellAI from "../components/CellAI";
 
 const CellPage = () => {
   const { cellName } = useParams();
   const [cell, setCell] = useState(null);
+  const [showCellAI, setShowCellAI] = useState(false);
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
 
@@ -380,6 +382,58 @@ const CellPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating Chatbot Button */}
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
+        <div className="relative group">
+          {/* Tagline Popup */}
+          <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">
+            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded-lg shadow-lg text-sm whitespace-nowrap border border-gray-200 dark:border-gray-700">
+              Ask me about {cell?.name || 'cells'}! 🧬
+              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white dark:border-t-gray-800"></div>
+            </div>
+          </div>
+          
+          {/* Chatbot Button */}
+          <button
+            onClick={() => {
+              console.log('CellAI button clicked');
+              setShowCellAI(true);
+            }}
+            className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group-hover:scale-110 hover:shadow-xl chatbot-float chatbot-pulse"
+            title="Cell-AI Chatbot"
+          >
+            <img 
+              src="/icons/ChatAI.png" 
+              alt="ChatAI" 
+              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+              onError={(e) => {
+                // Fallback to SVG if image fails to load
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <svg 
+              width="32" 
+              height="32" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="hidden"
+            >
+              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" fill="currentColor"/>
+              <circle cx="8" cy="10" r="1" fill="white"/>
+              <circle cx="12" cy="10" r="1" fill="white"/>
+              <circle cx="16" cy="10" r="1" fill="white"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <CellAI
+        onClose={() => setShowCellAI(false)}
+        isOpen={showCellAI}
+      />
     </div>
   );
 };

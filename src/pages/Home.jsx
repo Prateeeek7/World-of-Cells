@@ -4,6 +4,12 @@ import { useResponsive } from "../hooks/useResponsive";
 import { useTheme } from "../contexts/ThemeContext";
 import ThemeToggle from "../components/ThemeToggle";
 import OptimizedImage from "../components/OptimizedImage";
+import CellComparison from "../components/CellComparison";
+import TimelineView from "../components/TimelineView";
+import AISearch from "../components/AISearch";
+import CellAI from "../components/CellAI";
+import HamburgerMenu from "../components/HamburgerMenu";
+import cellsData from "../data/cells.json";
 
 // Move cellGroups outside component to prevent recreation on every render
 const cellGroups = [
@@ -73,9 +79,13 @@ const Home = () => {
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [hideLogo, setHideLogo] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
+  const [showTimeline, setShowTimeline] = useState(false);
+  const [showAISearch, setShowAISearch] = useState(false);
+  const [showCellAI, setShowCellAI] = useState(false);
 
   // Use custom responsive hook instead of inline window.innerWidth checks
-  const { isMobile, isSmallScreen, isMediumScreen } = useResponsive();
+  const { isMobile, isSmallScreen, isMediumScreen, isHamburgerMenu } = useResponsive();
   const { isDarkMode } = useTheme();
 
   // Debounce search input to reduce unnecessary filtering
@@ -160,39 +170,101 @@ const Home = () => {
 
   return (
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden relative">
-      {/* Background Video & Logo */}
-      <div
-        className={`absolute z-50 transition-opacity duration-500 ${
-          hideLogo ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
-        id="logo-header"
-        style={{
-          top: isMobile ? "20px" : "40px",
-          left: isMobile ? "20px" : "40px",
-        }}
-      >
-        <div className={`flex items-center gap-3 ${isMobile ? "flex-row" : "flex-col"}`}>
-          <OptimizedImage
-            src="/images/logo.png"
-            alt="World of Cells Logo"
-            className={isMobile ? "w-20 h-12" : "w-32 h-24"}
+      {/* Header - Conditional rendering based on screen size */}
+      {isHamburgerMenu ? (
+        // Hamburger Menu Layout - positioned inline with search bar
+        <div className="absolute z-50 top-8 left-4">
+          <HamburgerMenu
+            onAISearch={() => setShowAISearch(true)}
+            onComparison={() => setShowComparison(true)}
+            onTimeline={() => setShowTimeline(true)}
+            isOpen={isHamburgerMenu}
           />
-          {!isMobile && (
-            <span className="font-semibold text-lg text-white text-center">World of Cells</span>
-          )}
         </div>
-      </div>
+      ) : (
+        // Original Layout for larger screens
+        <>
+          {/* Background Video & Logo */}
+          <div
+            className={`absolute z-50 transition-opacity duration-500 ${
+              hideLogo ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
+            id="logo-header"
+            style={{
+              top: isMobile ? "20px" : "40px",
+              left: isMobile ? "20px" : "40px",
+            }}
+          >
+            <div className={`flex items-center gap-3 ${isMobile ? "flex-row" : "flex-col"}`}>
+              <OptimizedImage
+                src="/images/logo.png"
+                alt="World of Cells Logo"
+                className={isMobile ? "w-20 h-12" : "w-32 h-24"}
+              />
+              {!isMobile && (
+                <span className="font-semibold text-lg text-white text-center">World of Cells</span>
+              )}
+            </div>
+          </div>
 
-      {/* Theme Toggle Button */}
-      <div 
-        className="absolute z-50 transition-opacity duration-500"
-        style={{
-          top: isMobile ? "20px" : "40px",
-          right: isMobile ? "20px" : "40px",
-        }}
-      >
-        <ThemeToggle />
-      </div>
+          {/* Theme Toggle and Feature Buttons */}
+          <div 
+            className="absolute z-50 transition-opacity duration-500"
+            style={{
+              top: isMobile ? "20px" : "40px",
+              right: isMobile ? "20px" : "40px",
+            }}
+          >
+            <div className="flex items-center gap-3">
+              {/* Feature Buttons */}
+              <div className="flex gap-1 sm:gap-2">
+                <button
+                  onClick={() => setShowAISearch(true)}
+                  className="w-12 h-12 sm:w-10 sm:h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors flex items-center justify-center"
+                  title="AI-Powered Search"
+                >
+                  <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4L19 9Z" fill="currentColor"/>
+                    <circle cx="12" cy="15" r="3" fill="currentColor"/>
+                    <path d="M12 13.5C12.83 13.5 13.5 12.83 13.5 12S12.83 10.5 12 10.5 10.5 11.17 10.5 12 11.17 13.5 12 13.5Z" fill="white"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setShowComparison(true)}
+                  className="w-12 h-12 sm:w-10 sm:h-10 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg transition-colors flex items-center justify-center"
+                  title="Compare Cells"
+                >
+                  <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 2V22H5V2H7ZM19 2V22H17V2H19ZM3 8H9V6H3V8ZM11 8H21V6H11V8ZM3 12H9V10H3V12ZM11 12H21V10H11V12ZM3 16H9V14H3V16ZM11 16H21V14H11V16Z" fill="currentColor"/>
+                    <circle cx="6" cy="5" r="1.5" fill="white"/>
+                    <circle cx="18" cy="5" r="1.5" fill="white"/>
+                    <circle cx="6" cy="11" r="1.5" fill="white"/>
+                    <circle cx="18" cy="11" r="1.5" fill="white"/>
+                    <circle cx="6" cy="17" r="1.5" fill="white"/>
+                    <circle cx="18" cy="17" r="1.5" fill="white"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setShowTimeline(true)}
+                  className="w-12 h-12 sm:w-10 sm:h-10 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-colors flex items-center justify-center"
+                  title="Research Timeline"
+                >
+                  <svg className="w-5 h-5 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H18V1H16V3H8V1H6V3H5C3.89 3 3.01 3.9 3.01 5L3 19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V8H19V19ZM7 10H12V15H7V10Z" fill="currentColor"/>
+                    <circle cx="5" cy="6" r="1" fill="white"/>
+                    <circle cx="19" cy="6" r="1" fill="white"/>
+                    <rect x="9" y="12" width="3" height="2" fill="white"/>
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Theme Toggle */}
+              <ThemeToggle />
+            </div>
+          </div>
+        </>
+      )}
+
 
       <video
         ref={videoRef}
@@ -225,7 +297,7 @@ const Home = () => {
         <div
           className="w-full max-w-xs sm:max-w-xl relative"
           style={{
-            marginLeft: isMobile ? "80px" : undefined,
+            marginLeft: isMobile && !isHamburgerMenu ? "80px" : undefined,
           }}
         >
           <input
@@ -375,6 +447,79 @@ const Home = () => {
           </a>
         </div>
       </footer>
+
+      {/* Feature Modals */}
+      <CellComparison
+        cells={cellsData}
+        onCellSelect={(cell) => navigate(`/cell/${cell.name.toLowerCase().replace(/\s+/g, '-')}`)}
+        onClose={() => setShowComparison(false)}
+        isOpen={showComparison}
+      />
+
+      <TimelineView
+        cells={cellsData}
+        onClose={() => setShowTimeline(false)}
+        isOpen={showTimeline}
+      />
+
+      <AISearch
+        cells={cellsData}
+        onCellSelect={(cell) => navigate(`/cell/${cell.name.toLowerCase().replace(/\s+/g, '-')}`)}
+        onClose={() => setShowAISearch(false)}
+        isOpen={showAISearch}
+      />
+
+      {/* Floating Chatbot Button */}
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
+        <div className="relative group">
+          {/* Tagline Popup */}
+          <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none hidden sm:block">
+            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 rounded-lg shadow-lg text-sm whitespace-nowrap border border-gray-200 dark:border-gray-700">
+              Ask me anything about cells! 🧬
+              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white dark:border-t-gray-800"></div>
+            </div>
+          </div>
+          
+          {/* Chatbot Button */}
+          <button
+            onClick={() => {
+              console.log('CellAI button clicked');
+              setShowCellAI(true);
+            }}
+            className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group-hover:scale-110 hover:shadow-xl chatbot-float chatbot-pulse"
+            title="Cell-AI Chatbot"
+          >
+            <img 
+              src="/icons/ChatAI.png" 
+              alt="ChatAI" 
+              className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
+              onError={(e) => {
+                // Fallback to SVG if image fails to load
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <svg 
+              width="32" 
+              height="32" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="hidden"
+            >
+              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" fill="currentColor"/>
+              <circle cx="8" cy="10" r="1" fill="white"/>
+              <circle cx="12" cy="10" r="1" fill="white"/>
+              <circle cx="16" cy="10" r="1" fill="white"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <CellAI
+        onClose={() => setShowCellAI(false)}
+        isOpen={showCellAI}
+      />
     </div>
   );
 };
