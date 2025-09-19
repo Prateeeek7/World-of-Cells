@@ -4,6 +4,10 @@
   <img src="public/images/logo.png" alt="World of Cells Logo" width="200" height="200">
   <br>
   <em>A comprehensive, interactive web application exploring the fascinating world of human cells through detailed information, research references, and modern web technologies.</em>
+  <br><br>
+  <a href="https://worldofhumancells.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo on Vercel">
+  </a>
 </div>
 
 ---
@@ -13,8 +17,17 @@
 ### 🔍 **Interactive Cell Exploration**
 - **Comprehensive Cell Database**: 200+ human cell types with detailed information
 - **Smart Search**: Real-time search with dropdown results for quick navigation
+- **AI-Powered Search**: Advanced AI search with natural language processing
 - **Cell Grouping**: Organized by tissue types (Epithelial, Muscular, Nervous, etc.)
 - **Detailed Cell Pages**: Individual pages for each cell with comprehensive data
+- **Cell Comparison**: Side-by-side comparison of different cell types
+- **Research Timeline**: Interactive timeline of cell research discoveries
+
+### 🤖 **AI-Powered Features**
+- **Intelligent Chatbot**: AI assistant for cell biology questions using Groq API
+- **React Markdown Support**: Rich formatting for AI responses with syntax highlighting
+- **Context-Aware Responses**: Biology-focused AI that understands cell terminology
+- **Mobile-Optimized Chat**: Responsive chatbot interface for all devices
 
 ### 📚 **Rich Content & Research**
 - **Embryonic Origin**: Developmental biology information for each cell
@@ -23,12 +36,16 @@
 - **Disease Associations**: Related medical conditions and pathologies
 - **Research References**: Curated research papers, articles, and conference materials
 - **Tissue Engineering**: Current research applications and regenerative medicine
+- **Interactive Timeline**: Visual timeline of research milestones and discoveries
 
 ### 🎨 **Modern User Experience**
+- **Typography Preloader**: Elegant multi-language preloader with smooth animations
 - **Responsive Design**: Optimized for all devices (mobile, tablet, desktop)
+- **Hamburger Navigation**: Mobile-friendly navigation menu for smaller screens
 - **Dark/Light Mode**: Toggle between themes for comfortable viewing
 - **Performance Optimized**: React optimizations, code splitting, and lazy loading
 - **Accessibility**: Screen reader friendly with proper semantic markup
+- **PWA Support**: Progressive Web App capabilities with offline functionality
 
 ### 🚀 **Technical Excellence**
 - **React 18**: Modern React with hooks and functional components
@@ -43,29 +60,47 @@
 Anatomy copy/
 ├── public/                    # Static assets
 │   ├── images/               # Cell microscopy images
-│   ├── icons/                # Cell type icons
+│   ├── icons/                # Cell type icons (including ChatAI.png)
+│   ├── manifest.json         # PWA manifest
+│   ├── sw.js                 # Service worker
 │   └── index.html            # Main HTML file
 ├── src/                      # Source code
 │   ├── components/           # Reusable components
+│   │   ├── AISearch.jsx      # AI-powered search modal
+│   │   ├── AppWithPreloader.jsx # Preloader wrapper
+│   │   ├── CellAI.jsx        # AI chatbot component
+│   │   ├── CellComparison.jsx # Cell comparison modal
+│   │   ├── HamburgerMenu.jsx # Mobile navigation menu
+│   │   ├── OptimizedImage.jsx # Image optimization component
 │   │   ├── PerformanceMonitor.jsx
-│   │   └── ThemeToggle.jsx
+│   │   ├── Preloader.jsx     # Typography preloader
+│   │   ├── SkeletonLoader.jsx # Loading skeleton
+│   │   ├── ThemeToggle.jsx
+│   │   └── TimelineView.jsx  # Research timeline modal
 │   ├── contexts/             # React contexts
-│   │   └── ThemeContext.js
+│   │   └── ThemeContext.jsx
 │   ├── data/                 # Data files
-│   │   └── cells.json        # Cell database
+│   │   ├── cells.json        # Cell database
+│   │   └── timeline.json     # Research timeline data
 │   ├── hooks/                # Custom hooks
-│   │   └── useResponsive.js
+│   │   ├── useDebounce.js    # Search debouncing
+│   │   ├── usePWA.js         # PWA functionality
+│   │   └── useResponsive.js  # Responsive breakpoints
 │   ├── pages/                # Page components
 │   │   ├── Home.jsx          # Main landing page
 │   │   ├── GroupPage.jsx     # Cell group pages
 │   │   ├── CellPage.jsx      # Individual cell pages
 │   │   └── HumanCellIntro.jsx
+│   ├── utils/                # Utility functions
+│   │   └── imageOptimizer.js # Image optimization utilities
 │   ├── App.jsx               # Main app component
 │   ├── index.js              # Entry point
-│   └── index.css             # Global styles
-├── package.json              # Dependencies and scripts
-├── tailwind.config.js        # Tailwind configuration
-└── README.md                 # This file
+│   └── index.css             # Global styles with animations
+├── .env.example              # Environment variables template
+├── .gitignore               # Git ignore rules
+├── package.json             # Dependencies and scripts
+├── tailwind.config.js       # Tailwind configuration
+└── README.md                # This file
 ```
 
 ## 🚀 Getting Started
@@ -87,12 +122,21 @@ Anatomy copy/
    npm install
    ```
 
-3. **Start development server**
+3. **Set up environment variables**
+   ```bash
+   # Create .env file
+   cp .env.example .env
+   
+   # Add your Groq API key to .env
+   echo "REACT_APP_GROQ_API_KEY=your_groq_api_key_here" >> .env
+   ```
+
+4. **Start development server**
    ```bash
    npm start
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to `http://localhost:3000`
 
 ### Build for Production
@@ -107,16 +151,29 @@ The optimized build will be created in the `build/` directory.
 
 ### **Homepage Navigation**
 - **Search Bar**: Type any cell name for instant results
+- **AI Search**: Advanced AI-powered search with natural language processing
 - **Cell Groups**: Click on tissue type categories
+- **Compare Cells**: Side-by-side comparison of different cell types
+- **Research Timeline**: Interactive timeline of cell research discoveries
 - **Human Cell Intro**: Learn about cell biology basics
 - **Theme Toggle**: Switch between light and dark modes
+- **Hamburger Menu**: Mobile-friendly navigation (screens < 1100px)
+
+### **AI-Powered Features**
+- **Chatbot**: Click the floating AI button to ask cell biology questions
+- **Smart Responses**: AI understands cell terminology and provides detailed answers
+- **Markdown Formatting**: Rich text responses with syntax highlighting
+- **Mobile Optimized**: Responsive chat interface for all devices
 
 ### **Exploring Cells**
 1. **Search**: Use the search bar to find specific cells
-2. **Browse Groups**: Navigate through tissue type categories
-3. **Cell Details**: Click on any cell to view comprehensive information
-4. **Research Links**: Access curated research references for each cell
-5. **Further Learning**: Use "Want to Learn More?" buttons for additional research
+2. **AI Search**: Ask natural language questions about cells
+3. **Browse Groups**: Navigate through tissue type categories
+4. **Cell Details**: Click on any cell to view comprehensive information
+5. **Compare Cells**: Select multiple cells for side-by-side comparison
+6. **Research Timeline**: Explore historical discoveries and milestones
+7. **Research Links**: Access curated research references for each cell
+8. **Further Learning**: Use "Want to Learn More?" buttons for additional research
 
 ### **Research References**
 Each cell page includes:
@@ -124,6 +181,13 @@ Each cell page includes:
 - **PubMed Search**: Direct links to scientific literature
 - **Web Search**: Broader research on specific cell types
 - **Cell Group Navigation**: Related cell type exploration
+- **Interactive Timeline**: Visual representation of research milestones
+
+### **Mobile Experience**
+- **Hamburger Menu**: Compact navigation for smaller screens
+- **Responsive Design**: Optimized layouts for all screen sizes
+- **Touch-Friendly**: Large buttons and touch-optimized interactions
+- **PWA Support**: Install as a mobile app with offline capabilities
 
 ## 🧪 Performance Features
 
@@ -178,6 +242,11 @@ Each cell can have custom research references:
 - **State Management**: React Context API, Local Storage
 - **Build Tool**: Create React App
 - **Performance**: React DevTools, Custom monitoring
+- **AI Integration**: Groq API for intelligent responses
+- **Animations**: Framer Motion for smooth transitions
+- **Markdown**: React Markdown with syntax highlighting
+- **PWA**: Service Worker, Web App Manifest
+- **Responsive**: Custom hooks for breakpoint management
 
 ### **Browser Support**
 - Chrome (latest)
@@ -221,6 +290,27 @@ Each cell can have custom research references:
 - **Clinical Studies**: Medical research and clinical trials
 - **Review Articles**: Comprehensive scientific summaries
 
+## 🆕 New Features (Latest Update)
+
+### **AI-Powered Enhancements**
+- **Intelligent Chatbot**: Ask questions about cell biology and get detailed AI responses
+- **Natural Language Search**: Search using conversational queries
+- **Markdown Support**: Rich formatting in AI responses with syntax highlighting
+- **Context Awareness**: AI understands cell biology terminology and concepts
+
+### **User Experience Improvements**
+- **Typography Preloader**: Elegant loading screen with multi-language support
+- **Mobile Navigation**: Hamburger menu for screens under 1100px width
+- **Cell Comparison**: Side-by-side comparison of different cell types
+- **Research Timeline**: Interactive timeline of cell research discoveries
+- **Enhanced Responsiveness**: Optimized layouts for all screen sizes
+
+### **Technical Upgrades**
+- **PWA Support**: Install as a mobile app with offline capabilities
+- **Environment Variables**: Secure API key management
+- **Performance Optimizations**: Improved loading times and animations
+- **Code Organization**: Better component structure and maintainability
+
 ## 🚨 Troubleshooting
 
 ### **Common Issues**
@@ -229,6 +319,11 @@ Each cell can have custom research references:
 - Check browser console for errors
 - Ensure all dependencies are installed
 - Verify `cells.json` file integrity
+
+**AI Chatbot not responding**
+- Verify `REACT_APP_GROQ_API_KEY` is set in `.env` file
+- Check internet connection
+- Ensure API key is valid and has sufficient credits
 
 **Images not loading**
 - Check image file paths in `public/images/`
@@ -239,6 +334,11 @@ Each cell can have custom research references:
 - Check Performance Monitor for metrics
 - Verify code splitting is working
 - Monitor memory usage in DevTools
+
+**Mobile layout issues**
+- Clear browser cache and hard refresh
+- Check responsive breakpoints in browser dev tools
+- Verify hamburger menu is working on smaller screens
 
 ### **Development Issues**
 
@@ -268,7 +368,26 @@ This project is for educational and research purposes. All cell information and 
 For questions, issues, or contributions:
 - **Issues**: Create a GitHub issue
 - **Documentation**: Check this README and code comments
-- **Community**: Join our discussion forum
+
+---
+
+## 📦 Dependencies
+
+### **Core Dependencies**
+- **React**: 18.2.0 - UI library
+- **React Router**: 6.8.0 - Client-side routing
+- **Tailwind CSS**: 3.3.0 - Utility-first CSS framework
+
+### **New Dependencies**
+- **Framer Motion**: 10.16.0 - Animation library for smooth transitions
+- **React Markdown**: 9.0.0 - Markdown rendering for AI responses
+- **Remark GFM**: 4.0.0 - GitHub Flavored Markdown support
+- **Rehype Highlight**: 7.0.0 - Syntax highlighting for code blocks
+- **Highlight.js**: 11.9.0 - Syntax highlighting library
+
+### **Development Dependencies**
+- **PostCSS**: 8.4.0 - CSS processing
+- **Autoprefixer**: 10.4.0 - CSS vendor prefixing
 
 ---
 
