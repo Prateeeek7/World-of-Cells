@@ -30,7 +30,8 @@ const CellAI = ({ isOpen, onClose }) => {
   }, [messages]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    // Only focus on desktop, not on mobile to prevent zoom
+    if (isOpen && inputRef.current && window.innerWidth > 768) {
       inputRef.current.focus();
     }
   }, [isOpen]);
@@ -39,6 +40,27 @@ const CellAI = ({ isOpen, onClose }) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.body.classList.add('modal-open');
+      
+      // Mobile-specific viewport handling
+      if (window.innerWidth <= 768) {
+        // Store original viewport
+        const originalViewport = document.querySelector('meta[name="viewport"]');
+        const originalContent = originalViewport?.getAttribute('content');
+        
+        // Set viewport to prevent zoom
+        if (originalViewport) {
+          originalViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        }
+        
+        // Store for cleanup
+        return () => {
+          document.body.style.overflow = 'unset';
+          document.body.classList.remove('modal-open');
+          if (originalViewport && originalContent) {
+            originalViewport.setAttribute('content', originalContent);
+          }
+        };
+      }
     } else {
       document.body.style.overflow = 'unset';
       document.body.classList.remove('modal-open');
@@ -184,10 +206,29 @@ const CellAI = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4 md:p-6">
-      <div className={`w-full max-w-4xl h-[90vh] sm:h-[85vh] md:h-[80vh] rounded-xl sm:rounded-2xl shadow-2xl flex flex-col ${
-        isDarkMode ? 'bg-gray-900' : 'bg-white'
-      }`}>
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4 md:p-6"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        maxHeight: '100vh',
+        overflow: 'hidden'
+      }}
+    >
+      <div 
+        className={`modal-content w-full max-w-4xl h-[90vh] sm:h-[85vh] md:h-[80vh] rounded-xl sm:rounded-2xl shadow-2xl flex flex-col ${
+          isDarkMode ? 'bg-gray-900' : 'bg-white'
+        }`}
+        style={{
+          maxHeight: '90vh',
+          overflow: 'hidden'
+        }}
+      >
         {/* Header */}
         <div className={`flex items-center justify-between p-3 sm:p-4 md:p-6 border-b ${
           isDarkMode ? 'border-gray-700' : 'border-gray-200'
@@ -344,12 +385,21 @@ const CellAI = ({ isOpen, onClose }) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
+              onFocus={(e) => {
+                // Prevent zoom on mobile by ensuring font size is 16px
+                if (window.innerWidth <= 768) {
+                  e.target.style.fontSize = '16px';
+                }
+              }}
               placeholder="Ask me anything about biology, cells, or anatomy..."
-              className={`flex-1 resize-none rounded-lg sm:rounded-xl px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm ${
+              className={`flex-1 resize-none rounded-lg sm:rounded-xl px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 text-base sm:text-sm ${
                 isDarkMode
                   ? 'bg-gray-800 text-white placeholder-gray-400 border-gray-600'
                   : 'bg-white text-gray-900 placeholder-gray-500 border-gray-200'
               }`}
+              style={{
+                fontSize: window.innerWidth <= 768 ? '16px' : undefined
+              }}
               rows="2"
               disabled={isLoading}
             />

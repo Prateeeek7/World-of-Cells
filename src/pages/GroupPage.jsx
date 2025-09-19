@@ -204,12 +204,12 @@ const cellGroupTypes = {
   { name: "Enteroendocrine cell", icon: "/icons/gastrointestinal.png" },
   { name: "Tuft cell", icon: "/icons/gastrointestinal.png" },
   { name: "Intestinal stem cell", icon: "/icons/gastrointestinal.png" },
-  { name: "Paneth-like cell", icon: "/icons/gastrointestinal.png" },
+  { name: "Paneth like cell", icon: "/icons/gastrointestinal.png" },
   { name: "Gastric chief cell", icon: "/icons/gastrointestinal.png" },
   { name: "Gastric parietal cell", icon: "/icons/gastrointestinal.png" },
   { name: "Enterochromaffin cell", icon: "/icons/gastrointestinal.png" },
   { name: "Goblet cell (intestinal)", icon: "/icons/gastrointestinal.png" },
-  { name: "Cholecystocyte", icon: "/icons/gastrointestinal.png" },
+  { name: "Cholecystocyte (Gallbladder Epithelial Cell)", icon: "/icons/gastrointestinal.png" },
   { name: "Cholangiocyte", icon: "/icons/gastrointestinal.png" }
   ],
   "thoracic": [
