@@ -72,12 +72,45 @@ const CellPage = () => {
     setCell(foundCell);
   }, [foundCell]);
 
+  // Mapping function to convert cells.json group names to URL group names
+  const getGroupUrl = useCallback((groupName) => {
+    // Normalize the group name to lowercase and handle special characters
+    const normalizedGroup = groupName.toLowerCase().replace(/[&]/g, ' and ').replace(/\s+/g, ' ');
+    
+    // Direct mapping to GroupPage group names
+    const groupMapping = {
+      "epithelial": "epithelial",
+      "muscular": "muscular", 
+      "nervous and sensory": "nervous and sensory",
+      "hematopoietic": "hematopoietic",
+      "stem and progenitory": "stem & progenitory",
+      "connective": "connective",
+      "reproductive": "reproductive",
+      "skeletal": "skeletal",
+      "gastrointestinal": "gastrointestinal",
+      "thoracic": "thoracic",
+      "secretory and hormone": "secretory & hormone",
+      "immune": "immune"
+    };
+    
+    // Return the mapped group or null if not found
+    return groupMapping[normalizedGroup] || null;
+  }, []);
+
   // Memoize event handlers to prevent recreation on every render
   const handleBackClick = useCallback(() => {
     if (cell && cell.group) {
-      navigate(`/group/${cell.group.toLowerCase()}`);
+      const groupUrl = getGroupUrl(cell.group);
+      // If no valid group found, go to homepage
+      if (groupUrl === null) {
+        navigate('/');
+      } else {
+        navigate(`/group/${groupUrl}`);
+      }
+    } else {
+      navigate('/');
     }
-  }, [navigate, cell]);
+  }, [navigate, cell, getGroupUrl]);
 
   if (!cell) {
     return (
@@ -99,19 +132,17 @@ const CellPage = () => {
         style={{ borderRadius: '24px', margin: '2px 0' }}
       >
         {/* Back button */}
-        {cell && cell.group && (
-          <div className="w-full flex justify-start mt-8 md:mt-8">
-            <button
-              onClick={handleBackClick}
-              className="bg-[#5a2328] hover:bg-[#43181c] text-white font-bold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 flex items-center justify-center text-2xl mb-4 ml-2 md:ml-8
-                w-11 h-11 md:w-[44px] md:h-[44px]"
-              aria-label="Back to Group"
-              style={{ minWidth: '2.5rem', minHeight: '2.5rem' }}
-            >
-              <span className="flex items-center justify-center w-full h-full">&#8592;</span>
-            </button>
-          </div>
-        )}
+        <div className="w-full flex justify-start mt-8 md:mt-8">
+          <button
+            onClick={handleBackClick}
+            className="bg-[#5a2328] hover:bg-[#43181c] text-white font-bold rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 flex items-center justify-center text-2xl mb-4 ml-2 md:ml-8
+              w-11 h-11 md:w-[44px] md:h-[44px]"
+            aria-label={cell && cell.group ? "Back to Group" : "Back to Home"}
+            style={{ minWidth: '2.5rem', minHeight: '2.5rem' }}
+          >
+            <span className="flex items-center justify-center w-full h-full">&#8592;</span>
+          </button>
+        </div>
         <h1 className="text-4xl font-bold mb-4 capitalize text-center">{cell.name}</h1>
         {cell.image && (
           <div className="flex justify-center">

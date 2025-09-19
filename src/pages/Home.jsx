@@ -16,8 +16,8 @@ const cellGroups = [
   { name: "Epithelial", icon: "icons/epithelial-cell.png" },
   { name: "Muscular", icon: "icons/muscles.png" },
   { name: "Stem & Progenitory", icon: "icons/stem-cells.png" },
-  { name: "Nervous & Sensory", icon: "icons/neuron.png" },
-  { name: "Secretory & Endocrine", icon: "icons/thyroid.png" },
+  { name: "Nervous and Sensory", icon: "icons/neuron.png" },
+  { name: "Secretory & Hormone", icon: "icons/thyroid.png" },
   { name: "Hematopoietic", icon: "icons/red-blood-cells.png" },
   { name: "Immune", icon: "icons/immune.png" },
   { name: "Connective", icon: "icons/living-tissue.png" },
@@ -83,6 +83,7 @@ const Home = () => {
   const [showTimeline, setShowTimeline] = useState(false);
   const [showAISearch, setShowAISearch] = useState(false);
   const [showCellAI, setShowCellAI] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Use custom responsive hook instead of inline window.innerWidth checks
   const { isMobile, isSmallScreen, isMediumScreen, isHamburgerMenu } = useResponsive();
@@ -94,6 +95,58 @@ const Home = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 0.5;
+      
+      // Add event listeners for video loading
+      const video = videoRef.current;
+      
+      const handleLoadedData = () => {
+        setVideoLoaded(true);
+        console.log('Video loaded successfully');
+      };
+      
+      const handleCanPlay = () => {
+        console.log('Video can play');
+      };
+      
+      const handlePlay = () => {
+        console.log('Video started playing');
+      };
+      
+      const handleError = (e) => {
+        console.error('Video error:', e);
+      };
+      
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('play', handlePlay);
+      video.addEventListener('error', handleError);
+      
+      // Ensure video plays on mobile
+      const playVideo = async () => {
+        try {
+          await video.play();
+        } catch (error) {
+          console.log('Video autoplay failed:', error);
+          // Fallback: try to play on user interaction
+          const handleUserInteraction = () => {
+            video.play().catch(console.log);
+            document.removeEventListener('touchstart', handleUserInteraction);
+            document.removeEventListener('click', handleUserInteraction);
+          };
+          document.addEventListener('touchstart', handleUserInteraction);
+          document.addEventListener('click', handleUserInteraction);
+        }
+      };
+      
+      playVideo();
+      
+      // Cleanup
+      return () => {
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('play', handlePlay);
+        video.removeEventListener('error', handleError);
+      };
     }
   }, []);
 
@@ -173,7 +226,7 @@ const Home = () => {
       {/* Header - Conditional rendering based on screen size */}
       {isHamburgerMenu ? (
         // Hamburger Menu Layout - positioned inline with search bar
-        <div className="absolute z-50 top-8 left-4">
+        <div className="absolute z-50 left-4" style={{ top: "20px" }}>
           <HamburgerMenu
             onAISearch={() => setShowAISearch(true)}
             onComparison={() => setShowComparison(true)}
@@ -266,13 +319,30 @@ const Home = () => {
       )}
 
 
+      {/* Video Loading Indicator */}
+      {!videoLoaded && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 z-0 flex items-center justify-center">
+          <div className="text-white text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-lg">Loading...</p>
+          </div>
+        </div>
+      )}
+      
       <video
         ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        className="fixed top-0 left-0 w-full h-full object-cover z-0 pointer-events-none"
+        preload="auto"
+        webkit-playsinline="true"
+        x5-playsinline="true"
+        x5-video-player-type="h5"
+        x5-video-player-fullscreen="true"
+        className={`fixed top-0 left-0 w-full h-full object-cover z-0 pointer-events-none transition-opacity duration-500 ${
+          videoLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
         style={{
           minHeight: "100vh",
           minWidth: "100vw",
@@ -293,11 +363,15 @@ const Home = () => {
       }`} />
       
       {/* Search Bar */}
-      <div className="relative z-30 w-full flex justify-center pt-8 pb-2">
+      <div className="relative z-30 w-full flex justify-center pb-2" 
+           style={{
+             paddingTop: isMobile ? "90px" : "32px",
+           }}>
         <div
-          className="w-full max-w-xs sm:max-w-xl relative"
+          className="w-full max-w-xs sm:max-w-xl relative px-4"
           style={{
-            marginLeft: isMobile && !isHamburgerMenu ? "80px" : undefined,
+            marginLeft: isMobile && !isHamburgerMenu ? "0px" : undefined,
+            marginRight: isMobile && !isHamburgerMenu ? "0px" : undefined,
           }}
         >
           <input

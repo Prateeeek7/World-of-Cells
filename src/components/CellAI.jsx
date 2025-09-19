@@ -38,12 +38,15 @@ const CellAI = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
     } else {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     }
     
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     };
   }, [isOpen]);
 
@@ -181,31 +184,31 @@ const CellAI = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className={`w-full max-w-4xl h-[90vh] sm:h-[80vh] rounded-2xl shadow-2xl flex flex-col ${
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4 md:p-6">
+      <div className={`w-full max-w-4xl h-[90vh] sm:h-[85vh] md:h-[80vh] rounded-xl sm:rounded-2xl shadow-2xl flex flex-col ${
         isDarkMode ? 'bg-gray-900' : 'bg-white'
       }`}>
         {/* Header */}
-        <div className={`flex items-center justify-between p-4 sm:p-6 border-b ${
+        <div className={`flex items-center justify-between p-3 sm:p-4 md:p-6 border-b ${
           isDarkMode ? 'border-gray-700' : 'border-gray-200'
         }`}>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <img
               src="/icons/ChatAI.png"
               alt="ChatAI"
-              className="w-10 h-10 object-contain"
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               onError={(e) => {
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'block';
               }}
             />
             <svg
-              width="40"
-              height="40"
+              width="32"
+              height="32"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="hidden"
+              className="hidden sm:w-10 sm:h-10"
             >
               <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16Z" fill="currentColor"/>
               <circle cx="8" cy="10" r="1" fill="white"/>
@@ -213,34 +216,35 @@ const CellAI = ({ isOpen, onClose }) => {
               <circle cx="16" cy="10" r="1" fill="white"/>
             </svg>
             <div>
-              <h2 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-lg sm:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 Cell-AI
               </h2>
-              <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 Your Biology Assistant
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <button
               onClick={clearChat}
-              className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+              className={`px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm rounded-lg transition-colors ${
                 isDarkMode 
                   ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' 
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
               }`}
             >
-              Clear Chat
+              <span className="hidden sm:inline">Clear Chat</span>
+              <span className="sm:hidden">Clear</span>
             </button>
             <button
               onClick={onClose}
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-colors ${
                 isDarkMode 
                   ? 'hover:bg-gray-700 text-gray-400' 
                   : 'hover:bg-gray-100 text-gray-500'
               }`}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
               </svg>
             </button>
@@ -248,38 +252,38 @@ const CellAI = ({ isOpen, onClose }) => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 space-y-2 sm:space-y-3 md:space-y-4">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 ${
+              <div className={`max-w-[90%] sm:max-w-[80%] rounded-xl sm:rounded-2xl px-3 py-2 sm:px-4 sm:py-3 ${
                 message.type === 'user'
                   ? `bg-blue-600 text-white`
                   : isDarkMode
                     ? 'bg-gray-800 text-gray-100'
                     : 'bg-gray-100 text-gray-900'
               }`}>
-                <div className="prose prose-sm max-w-none prose-headings:text-current prose-p:text-current prose-strong:text-current prose-code:text-current prose-pre:text-current prose-blockquote:text-current prose-li:text-current">
+                <div className="prose prose-xs sm:prose-sm max-w-none prose-headings:text-current prose-p:text-current prose-strong:text-current prose-code:text-current prose-pre:text-current prose-blockquote:text-current prose-li:text-current">
                   {message.type === 'bot' ? (
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       rehypePlugins={[rehypeHighlight]}
                       components={{
-                        h1: ({ children }) => <h1 className="text-lg font-bold mb-2 text-current">{children}</h1>,
-                        h2: ({ children }) => <h2 className="text-base font-semibold mb-2 text-current">{children}</h2>,
-                        h3: ({ children }) => <h3 className="text-sm font-semibold mb-1 text-current">{children}</h3>,
-                        p: ({ children }) => <p className="mb-2 text-current">{children}</p>,
-                        ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1 text-current">{children}</ul>,
-                        ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1 text-current">{children}</ol>,
-                        li: ({ children }) => <li className="text-current">{children}</li>,
-                        code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm text-current">{children}</code>,
-                        pre: ({ children }) => <pre className="bg-gray-200 dark:bg-gray-700 p-2 rounded text-sm overflow-x-auto text-current">{children}</pre>,
-                        blockquote: ({ children }) => <blockquote className="border-l-4 border-blue-500 pl-4 italic text-current">{children}</blockquote>,
-                        table: ({ children }) => <table className="w-full border-collapse border border-gray-300 dark:border-gray-600 text-current">{children}</table>,
-                        th: ({ children }) => <th className="border border-gray-300 dark:border-gray-600 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-current">{children}</th>,
-                        td: ({ children }) => <td className="border border-gray-300 dark:border-gray-600 px-2 py-1 text-current">{children}</td>,
+                        h1: ({ children }) => <h1 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-current">{children}</h1>,
+                        h2: ({ children }) => <h2 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-current">{children}</h2>,
+                        h3: ({ children }) => <h3 className="text-xs sm:text-sm font-semibold mb-1 text-current">{children}</h3>,
+                        p: ({ children }) => <p className="mb-1 sm:mb-2 text-xs sm:text-sm text-current">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc list-inside mb-1 sm:mb-2 space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-current">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal list-inside mb-1 sm:mb-2 space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-current">{children}</ol>,
+                        li: ({ children }) => <li className="text-xs sm:text-sm text-current">{children}</li>,
+                        code: ({ children }) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-xs sm:text-sm text-current">{children}</code>,
+                        pre: ({ children }) => <pre className="bg-gray-200 dark:bg-gray-700 p-2 rounded text-xs sm:text-sm overflow-x-auto text-current">{children}</pre>,
+                        blockquote: ({ children }) => <blockquote className="border-l-4 border-blue-500 pl-2 sm:pl-4 italic text-xs sm:text-sm text-current">{children}</blockquote>,
+                        table: ({ children }) => <table className="w-full border-collapse border border-gray-300 dark:border-gray-600 text-xs sm:text-sm text-current">{children}</table>,
+                        th: ({ children }) => <th className="border border-gray-300 dark:border-gray-600 px-1 sm:px-2 py-0.5 sm:py-1 bg-gray-100 dark:bg-gray-700 text-current">{children}</th>,
+                        td: ({ children }) => <td className="border border-gray-300 dark:border-gray-600 px-1 sm:px-2 py-0.5 sm:py-1 text-current">{children}</td>,
                         strong: ({ children }) => <strong className="font-semibold text-current">{children}</strong>,
                         em: ({ children }) => <em className="italic text-current">{children}</em>,
                       }}
@@ -287,10 +291,10 @@ const CellAI = ({ isOpen, onClose }) => {
                       {message.content}
                     </ReactMarkdown>
                   ) : (
-                    <div className="whitespace-pre-wrap">{message.content}</div>
+                    <div className="whitespace-pre-wrap text-xs sm:text-sm">{message.content}</div>
                   )}
                 </div>
-                <div className={`text-xs mt-2 ${
+                <div className={`text-xs mt-1 sm:mt-2 ${
                   message.type === 'user' 
                     ? 'text-blue-100' 
                     : isDarkMode 
@@ -305,16 +309,16 @@ const CellAI = ({ isOpen, onClose }) => {
           
           {isLoading && (
             <div className="flex justify-start">
-              <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+              <div className={`max-w-[90%] sm:max-w-[80%] rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 ${
                 isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-gray-100 text-gray-900'
               }`}>
                 <div className="flex items-center gap-2">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
-                  <span className="text-sm">Cell-AI is thinking...</span>
+                  <span className="text-xs sm:text-sm">Cell-AI is thinking...</span>
                 </div>
               </div>
             </div>
@@ -333,15 +337,15 @@ const CellAI = ({ isOpen, onClose }) => {
         )}
 
         {/* Input */}
-        <div className={`p-4 sm:p-6 border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-          <div className="flex gap-3">
+        <div className={`p-3 sm:p-4 md:p-6 border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className="flex gap-2 sm:gap-3">
             <textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask me anything about biology, cells, or anatomy..."
-              className={`flex-1 resize-none rounded-xl px-3 py-2 sm:px-4 sm:py-3 border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base ${
+              className={`flex-1 resize-none rounded-lg sm:rounded-xl px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm ${
                 isDarkMode
                   ? 'bg-gray-800 text-white placeholder-gray-400 border-gray-600'
                   : 'bg-white text-gray-900 placeholder-gray-500 border-gray-200'
@@ -352,22 +356,22 @@ const CellAI = ({ isOpen, onClose }) => {
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isLoading}
-              className={`px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-medium transition-colors text-sm sm:text-base ${
+              className={`px-2 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-lg sm:rounded-xl font-medium transition-colors text-xs sm:text-sm ${
                 !input.trim() || isLoading
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
               }`}
             >
               {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
                 </svg>
               )}
             </button>
           </div>
-          <p className={`text-xs mt-2 text-center ${
+          <p className={`text-xs mt-1 sm:mt-2 text-center ${
             isDarkMode ? 'text-gray-400' : 'text-gray-500'
           }`}>
             Press Enter to send, Shift+Enter for new line

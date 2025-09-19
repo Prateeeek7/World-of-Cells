@@ -89,7 +89,7 @@ const cellGroupTypes = {
   { name: "Rhabdomyoblast", icon: "/icons/strength.png" }
 ]
 ,
-  "nervous & sensory": [
+  "nervous and sensory": [
   { name: "Neuron", icon: "/icons/nervous.png" },
   { name: "Astrocyte", icon: "/icons/nervous.png" },
   { name: "Oligodendrocyte", icon: "/icons/nervous.png" },
@@ -127,7 +127,7 @@ const cellGroupTypes = {
   { name: "Eosinophil", icon: "/icons/blood.png" },
   { name: "Basophil", icon: "/icons/blood.png" },
   { name: "Monocyte", icon: "/icons/blood.png" },
-  { name: "Lymphoblast", icon: "/icons/blood.png" },
+  { name: "Lymphocyte", icon: "/icons/blood.png" },
   { name: "Erythroblast", icon: "/icons/blood.png" },
   { name: "Reticulocyte", icon: "/icons/blood.png" },
   { name: "Megakaryocyte", icon: "/icons/blood.png" },
@@ -147,7 +147,7 @@ const cellGroupTypes = {
     { name: "Oligodendrocyte progenitor cell", icon: "/icons/stem.png" },
     { name: "Bulge cell (hair follicle)", icon: "/icons/stem.png" },
     { name: "Neural stem cell", icon: "/icons/stem.png" },
-    { name: "Intestinal stem cell", icon: "/icons/stem.png" },
+    // { name: "Intestinal stem cell", icon: "/icons/stem.png" },
     { name: "Epidermal stem cell", icon: "/icons/stem.png" },
     { name: "Satellite cell (muscle stem cell)", icon: "/icons/stem.png" },
     { name: "Spermatogonial stem cell", icon: "/icons/stem.png" },
@@ -169,7 +169,7 @@ const cellGroupTypes = {
   { name: "Preadipocyte", icon: "/icons/connective.png" },
   { name: "Podocyte", icon: "/icons/connective.png" },
   { name: "Stromal cell", icon: "/icons/connective.png" },
-  { name: "Myofibroblast-C", icon: "/icons/connective.png" },
+  { name: "Myofibroblast C", icon: "/icons/connective.png" },
   { name: "Chondroprogenitor cell", icon: "/icons/connective.png" },
   { name: "Adventitial fibroblast", icon: "/icons/connective.png" },
   { name: "Dermal fibroblast", icon: "/icons/connective.png" },
@@ -213,10 +213,10 @@ const cellGroupTypes = {
   { name: "Cholangiocyte", icon: "/icons/gastrointestinal.png" }
   ],
   "thoracic": [
-   { name: "Pneumocyte type I", icon: "/icons/thoracic.png" },
+  { name: "Pneumocyte type I", icon: "/icons/thoracic.png" },
   { name: "Pneumocyte type II", icon: "/icons/thoracic.png" },
   { name: "Pulmonary neuroendocrine cell", icon: "/icons/thoracic.png" },
-  { name: "Club cell", icon: "/icons/thoracic.png" },
+  { name: "Club cell (Thoracic)", icon: "/icons/thoracic.png" },
   { name: "Ciliated airway cell", icon: "/icons/thoracic.png" },
   { name: "Goblet cell (respiratory)", icon: "/icons/thoracic.png" },
   { name: "Bronchial epithelial cell", icon: "/icons/thoracic.png" },
@@ -224,11 +224,11 @@ const cellGroupTypes = {
   { name: "Pulmonary endothelial cell", icon: "/icons/thoracic.png" },
   { name: "Tracheal epithelial cell", icon: "/icons/thoracic.png" }
   ],
-  "secretory & endocrine":[
-    { name: "Pancreatic beta cell", icon: "/icons/secretory.png" },
-    { name: "Pancreatic alpha cell", icon: "/icons/secretory.png" },
-    { name: "Pancreatic delta cell", icon: "/icons/secretory.png" },
-    { name: "Chromaffin cell", icon: "/icons/secretory.png" },
+  "secretory & hormone":[
+    { name: "Pancreatic Beta Cell", icon: "/icons/secretory.png" },
+    { name: "Pancreatic Alpha Cell", icon: "/icons/secretory.png" },
+    { name: "Pancreatic Delta Cell", icon: "/icons/secretory.png" },
+    { name: "Chromaffin Cell", icon: "/icons/secretory.png" },
     { name: "Parafollicular cell", icon: "/icons/secretory.png" },
     { name: "Pinealocyte", icon: "/icons/secretory.png" },
     { name: "Gonadotrope", icon: "/icons/secretory.png" },
@@ -243,8 +243,8 @@ const cellGroupTypes = {
     { name: "Zona glomerulosa cell", icon: "/icons/secretory.png" },
     { name: "Zona fasciculata cell", icon: "/icons/secretory.png" },
     { name: "Zona reticularis cell", icon: "/icons/secretory.png" },
-    { name: "Salivary gland's acinar cell", icon: "/icons/secretory.png" },
-    { name: "Salivary gland's duct cell", icon: "/icons/secretory.png" }
+    { name: "Salivary Gland's acinar cell", icon: "/icons/secretory.png" },
+    { name: "Salivary Gland's duct cell", icon: "/icons/secretory.png" }
   ],
  "immune": [
   { name: "Macrophage", icon: "/icons/immune1.png" },
@@ -256,7 +256,7 @@ const cellGroupTypes = {
   { name: "Regulatory T Cell", icon: "/icons/immune1.png" },
   { name: "Natural Killer (NK) Cell", icon: "/icons/immune1.png" },
   { name: "Mast Cell", icon: "/icons/immune1.png" },
-  { name: "Microglia", icon: "/icons/immune1.png" },
+  // { name: "Microglia", icon: "/icons/immune1.png" },
   { name: "Kupffer Cell", icon: "/icons/immune1.png" },
   { name: "Langerhans Cell", icon: "/icons/immune1.png" },
   { name: "Gamma delta T Cell", icon: "/icons/immune1.png" },
@@ -292,13 +292,13 @@ const groupDescriptions = {
 
   ,"gastrointestinal": "**Gastrointestinal (GI) cells**, including those from the _liver_ and _pancreas_, specialize in **digestion**, **absorption**, **enzyme secretion**, **detoxification**, and **hormone regulation**. In the stomach and intestines, key types include **enterocytes** (`absorb nutrients`), **goblet cells** (`secrete mucus`), **Paneth cells** (`release antimicrobial peptides`), **enteroendocrine cells** (`digestive hormones`), **parietal** and **chief cells** (`acid and enzymes`). In the **liver**, **hepatocytes** handle `metabolism`, `bile production`, and `detoxification`, while **Kupffer cells** (`macrophages`) and **stellate cells** (`vitamin A storage`) aid immunity and repair. **Pancreatic acinar cells** secrete digestive enzymes, **ductal cells** transport them, and **islets of Langerhans** regulate blood sugar via **alpha**, **beta**, and **delta cells**. Together, GI cells maintain **digestive health**, **metabolism**, and **immunity**."
 
-  ,"stem & progenitory": "**Stem cells** are unique, undifferentiated cells capable of **self-renewal** and **differentiation** into specialized cell types, crucial for growth, repair, and regeneration. They vary by potential: **totipotent** (all cells including embryonic), **pluripotent** (any body cell), and **multipotent** (limited families like blood or nerve). They also vary by source: **embryonic**, **adult (somatic)**, and **induced pluripotent stem cells (iPSCs)**—adult cells genetically reprogrammed. Stem cells drive **tissue maintenance**, healing, and are central to **regenerative medicine**, targeting conditions like **spinal injuries**, **blood disorders**, and **neurodegeneration**."
+  ,"stem and progenitory": "**Stem cells** are unique, undifferentiated cells capable of **self-renewal** and **differentiation** into specialized cell types, crucial for growth, repair, and regeneration. They vary by potential: **totipotent** (all cells including embryonic), **pluripotent** (any body cell), and **multipotent** (limited families like blood or nerve). They also vary by source: **embryonic**, **adult (somatic)**, and **induced pluripotent stem cells (iPSCs)**—adult cells genetically reprogrammed. Stem cells drive **tissue maintenance**, healing, and are central to **regenerative medicine**, targeting conditions like **spinal injuries**, **blood disorders**, and **neurodegeneration**."
 
   ,"thoracic": "**Thoracic cells** reside in the **lungs**, **trachea**, **bronchi**, and **pleura**, supporting **breathing**, **gas exchange**, and **defense**. **Alveolar Type I cells** manage `gas exchange`, and **Type II cells** secrete `surfactant` to keep alveoli open. **Bronchial epithelial cells** like **ciliated** and **goblet cells** remove dust/microbes with mucus and cilia. **Club (Clara) cells** in bronchioles detoxify and assist in repair. **Pulmonary endothelial cells** regulate capillary `gas/fluid exchange`. **Pleural mesothelial cells** reduce friction via `fluid secretion`. Collectively, they sustain **respiratory function** and shield against environmental hazards."
 
   ,"connective": "**Connective tissue cells** form the body's **structural framework**, supporting, binding, and protecting organs. Embedded in an **extracellular matrix** of fibers (e.g., **collagen**, **elastin**) and ground substance, they include **fibroblasts** (make matrix), **adipocytes** (store fat), **chondrocytes** (cartilage), and **osteocytes** (bone). Also present are **macrophages**, **mast cells**, **plasma cells**, and **leukocytes** that handle **immunity** and **inflammation**. Based on type—loose, dense, cartilage, bone, blood—connective cells handle **support**, **repair**, **protection**, and **communication** across tissues."
 
-  ,"secretory & endocrine": "**Endocrine cells** secrete **hormones** into the bloodstream or interstitial fluid, regulating processes like **metabolism**, **growth**, and **homeostasis**. Unlike **exocrine cells** that use ducts, endocrine cells release internally for **systemic effect**. They exist alone (e.g., **enteroendocrine cells**) or in glands (e.g., **thyroid**, **adrenal**), featuring **vesicles**, **rough ER**, and **Golgi** for protein synthesis. Operated by **feedback loops** (mainly negative feedback), they maintain **hormonal balance**. Dysfunctions can cause **endocrine disorders**, underlining their importance in internal regulation."
+  ,"secretory & hormone": "**Endocrine cells** secrete **hormones** into the bloodstream or interstitial fluid, regulating processes like **metabolism**, **growth**, and **homeostasis**. Unlike **exocrine cells** that use ducts, endocrine cells release internally for **systemic effect**. They exist alone (e.g., **enteroendocrine cells**) or in glands (e.g., **thyroid**, **adrenal**), featuring **vesicles**, **rough ER**, and **Golgi** for protein synthesis. Operated by **feedback loops** (mainly negative feedback), they maintain **hormonal balance**. Dysfunctions can cause **endocrine disorders**, underlining their importance in internal regulation."
 
   ,"immune": "**Immune cells** (a.k.a. **white blood cells** or **leukocytes**) defend against **pathogens**, **toxins**, and **abnormal cells**. Divided into **innate** (fast, non-specific: `neutrophils`, `macrophages`, `NK cells`, `dendritic cells`, `mast cells`) and **adaptive** (slow, specific: `T cells`, `B cells`) arms. **T cells** kill infected cells or coordinate responses; **B cells** produce **antibodies**. These cells move through **blood**, **lymph**, and **lymphoid organs** (e.g., **spleen**, **nodes**, **bone marrow**), communicating via **cytokines**. They're vital for **infection defense**, **cancer surveillance**, and **immune tolerance**. Malfunction leads to **autoimmunity**, **immunodeficiency**, or **chronic inflammation**."
 
@@ -341,13 +341,14 @@ const GroupPage = () => {
       <button
         type="button"
         onClick={handleBackClick}
-        className="absolute left-4 bottom-4 z-50 bg-[#5a2328] hover:bg-[#43181c] text-white font-bold py-1 px-5 rounded-3xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-lg flex items-center gap-2"
-        style={{ minWidth: '120px' }}
+        className="absolute left-4 top-4 z-50 bg-[#5a2328] hover:bg-[#43181c] text-white font-bold py-3 px-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-xl flex items-center justify-center"
+        style={{ minWidth: '48px', minHeight: '48px' }}
+        title="Back to Home"
       >
-        &#8592; Home
+        &#8592;
       </button>
       <div className="relative z-10 flex flex-col items-center w-full">
-        <h1 className="text-4xl font-bold mb-4 capitalize drop-shadow-lg">{groupName} Cells</h1>
+        <h1 className="text-4xl font-bold mb-4 capitalize drop-shadow-lg ml-16 sm:ml-20">{groupName} Cells</h1>
         <div className="mb-4 text-lg max-w-6xl text-center">
           <ReactMarkdown 
             components={{
