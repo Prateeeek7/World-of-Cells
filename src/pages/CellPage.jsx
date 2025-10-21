@@ -1,6 +1,31 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+
+// Helper function to convert array or comma-separated string to proper markdown format
+const formatMarkdownContent = (content) => {
+  if (!content) return 'Unknown';
+  
+  // If it's an array, join with periods and capitalize first letter
+  if (Array.isArray(content)) {
+    const joined = content.join('. ').trim();
+    return joined.charAt(0).toUpperCase() + joined.slice(1) + (joined.endsWith('.') ? '' : '.');
+  }
+  
+  // If it's a string with commas, convert to sentences
+  if (typeof content === 'string' && content.includes(',')) {
+    const sentences = content.split(',').map(item => item.trim()).join('. ');
+    return sentences.charAt(0).toUpperCase() + sentences.slice(1) + (sentences.endsWith('.') ? '' : '.');
+  }
+  
+  // Clean up any existing formatting and ensure proper capitalization
+  if (typeof content === 'string') {
+    const cleaned = content.trim();
+    return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+  
+  return content;
+};
 import cellsData from "../data/cells.json";
 import { useTheme } from "../contexts/ThemeContext";
 import OptimizedImage from "../components/OptimizedImage";
@@ -145,12 +170,51 @@ const CellPage = () => {
         </div>
         <h1 className="text-4xl font-bold mb-4 capitalize text-center">{cell.name}</h1>
         {cell.image && (
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center">
             <OptimizedImage
               src={cell.image}
               alt={cell.name + ' diagram'}
-              className="w-96 h-96 md:w-[32rem] md:h-[32rem] object-contain rounded shadow mb-10"
+              className="w-96 h-96 md:w-[32rem] md:h-[32rem] object-contain rounded shadow mb-0"
             />
+            
+            {/* Simple Image Description and Reference */}
+            {(cell.image_description || cell.image_reference) && (
+              <div className={`max-w-2xl text-center px-4 py-2 rounded-lg mb-12 ${
+                isDarkMode 
+                  ? "bg-gray-800/50 border border-gray-600" 
+                  : "bg-gray-100/50 border border-gray-300"
+              }`}>
+                {cell.image_description && (
+                  <p className={`text-sm italic mb-2 ${
+                    isDarkMode ? "text-gray-300" : "text-gray-600"
+                  }`}>
+                    {cell.image_description}
+                  </p>
+                )}
+                {cell.image_reference && cell.image_reference.length > 0 && (
+                  <div className="space-y-1">
+                    {cell.image_reference.map((ref, index) => (
+                      <p key={index} className={`text-xs italic ${
+                        isDarkMode ? "text-gray-400" : "text-gray-500"
+                      }`}>
+                        {ref.url ? (
+                          <a 
+                            href={ref.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                          >
+                            {ref.source}
+                          </a>
+                        ) : (
+                          ref.source
+                        )}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
         <div className="max-w-[96rem] space-y-10 px-2 md:px-10 lg:px-20 mx-auto">
@@ -164,10 +228,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.embryonic_origin || 'Unknown'}
+                {formatMarkdownContent(cell.embryonic_origin)}
               </ReactMarkdown>
             </div>
           </section>
@@ -187,10 +254,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.location || 'Unknown'}
+                {formatMarkdownContent(cell.location)}
               </ReactMarkdown>
             </div>
           </section>
@@ -202,10 +272,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.function || 'Unknown'}
+                {formatMarkdownContent(cell.function)}
               </ReactMarkdown>
             </div>
           </section>
@@ -217,10 +290,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.life_span || 'Unknown'}
+                {formatMarkdownContent(cell.life_span)}
               </ReactMarkdown>
             </div>
           </section>
@@ -232,10 +308,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.adherent || 'Unknown'}
+                {formatMarkdownContent(cell.adherent)}
               </ReactMarkdown>
             </div>
           </section>
@@ -247,10 +326,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.effect_of_ageing || 'Unknown'}
+                {formatMarkdownContent(cell.effect_of_ageing)}
               </ReactMarkdown>
             </div>
           </section>
@@ -262,10 +344,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.related_disease || 'Unknown'}
+                {formatMarkdownContent(cell.related_disease)}
               </ReactMarkdown>
             </div>
           </section>
@@ -277,10 +362,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.history_of_evolution || 'Unknown'}
+                {formatMarkdownContent(cell.history_of_evolution)}
               </ReactMarkdown>
             </div>
           </section>
@@ -292,10 +380,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.relevance_to_tissue_development || 'Unknown'}
+                {formatMarkdownContent(cell.relevance_to_tissue_development)}
               </ReactMarkdown>
             </div>
           </section>
@@ -307,10 +398,13 @@ const CellPage = () => {
                   strong: ({children}) => <strong className="font-bold">{children}</strong>,
                   em: ({children}) => <em className="italic">{children}</em>,
                   code: ({children}) => <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm font-mono">{children}</code>,
-                  p: ({children}) => <p className="mb-2">{children}</p>
+                  p: ({children}) => <p className="mb-3 leading-relaxed">{children}</p>,
+                  ul: ({children}) => <ul className="mb-3 pl-4 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="mb-3 pl-4 space-y-1">{children}</ol>,
+                  li: ({children}) => <li className="leading-relaxed">{children}</li>
                 }}
               >
-                {cell.tissue_engineering_research || 'Unknown'}
+                {formatMarkdownContent(cell.tissue_engineering_research)}
               </ReactMarkdown>
             </div>
           </section>

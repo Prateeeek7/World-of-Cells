@@ -514,6 +514,12 @@ const Home = () => {
             GitHub
           </a>
           <a
+            href="/terms-of-use"
+            className="hover:underline transition-colors"
+          >
+            Terms of Use
+          </a>
+          <a
             href="mailto:pratik2002singh@gmail.com"
             className="hover:underline transition-colors"
           >

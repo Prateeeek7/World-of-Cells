@@ -1,0 +1,83 @@
+   "name": "Keratinocytes",
+    "group": "Epithelial",
+    "icon": "/icons/E1.png",
+    "image": "/images/Keratinocytes.png",
+    "embryonic_origin": "Ectoderm, specifically from the surface ectoderm during embryogenesis",
+    "discovery": {
+      "scientist": "Heinrich Wilhelm Gottfried von Waldeyer-Hartz",
+      "year": "1870",
+      "stain": "Hematoxylin and Eosin (H&E) \u2014 highlights nuclei and cytoplasmic components for detailed visualization"
+    },
+    "location": "Primarily found in the epidermis of the skin, especially in the stratum basale, spinosum, granulosum, and corneum layers",
+    "function": "Keratinocytes serve as the primary structural cells of the epidermis and account for approximately 90% of the total cells in this outermost skin layer. Their most critical function is to form a durable, semi-permeable barrier that protects the body from a variety of environmental assaults such as ultraviolet (UV) radiation, microbial invasion, physical trauma, and chemical exposure. As they mature, keratinocytes synthesize and accumulate keratin\u2014a fibrous structural protein that provides mechanical resilience and waterproofing. Additionally, keratinocytes produce antimicrobial peptides and cytokines that help regulate innate immune responses in the skin. These cells also metabolize vitamin D upon UVB exposure, contributing to calcium homeostasis. Beyond their defensive roles, keratinocytes participate in sensory signal transduction and wound healing by releasing signaling molecules that influence the activity of fibroblasts, immune cells, and neighboring keratinocytes. Their ability to proliferate, differentiate, and migrate is essential for maintaining skin homeostasis and repairing tissue after injury. Dysregulation of keratinocyte function can lead to a wide range of skin disorders and inflammatory conditions.",
+    "life_span": "Approximately 28 days \u2014 they undergo terminal differentiation as they migrate from the basal layer to the skin surface before shedding off as corneocytes",
+    "adherent": "Yes, Osteochondroprogenitor cells are adherent mesenchymal stem cell–derived precursors capable of differentiating into both osteoblasts and chondrocytes. They are found in the periosteum, endosteum, and growth plate regions where bone and cartilage development occur.",
+    "effect_of_ageing": "Keratinocyte proliferation slows with age, leading to a thinner and more fragile epidermis, reduced collagen support, impaired barrier function, and slower wound healing. There's also decreased antioxidant activity and increased susceptibility to damage.",
+    "related_disease": "Involved in several dermatological conditions such as psoriasis (hyperproliferation), eczema (barrier dysfunction), squamous cell carcinoma (cancerous transformation), and chronic wounds in diabetic patients",
+    "history_of_evolution": "Club cells, previously known as Clara cells, were first described by Max Clara in 1937 in the bronchiolar epithelium of mammals. Evolutionarily, their emergence represents an adaptation to airborne environmental stress, providing both detoxification mechanisms and regenerative potential in the small airways. Comparative studies show that similar secretory cells exist in various mammals, highlighting their conserved role in lung protection and epithelial maintenance. Their evolutionary specialization correlates with the need for efficient detoxification and alveolar preservation in species with high respiratory rates and exposure to environmental toxins.",
+    "relevance_to_tissue_development": "Tracheal epithelial cells are essential for the development and functional maturation of the tracheal lining. During tissue development, they differentiate into ciliated, goblet, and basal cells, establishing the pseudostratified epithelium that protects the airway. These cells contribute to mucus production, mucociliary clearance, and barrier formation, guiding the organization of surrounding tissues and maintaining airway integrity, defense, and homeostasis throughout respiratory development.",
+    "tissue_engineering_research": "In tissue engineering, Club cells are valuable due to their stem-like regenerative potential. They are used in lung organoids, bronchiolar tissue models, and bioengineered airway constructs to study respiratory diseases, test drugs, and restore damaged epithelium. Incorporating Club cells into engineered tissues helps replicate native bronchiolar function, supporting mucosal protection, detoxification, and epithelial renewal in regenerative medicine applications.",
+    "image_description":"Trachea epithelium. Light micrograph of a vertical section through the pseudostratified columnar epithelium from the trachea, the tube in the throat leading from the mouth to the bronchus and the lungs. ",
+    "image_reference": [
+      {
+        "source": "Science Photo Library",
+        "url": "https://www.sciencephoto.com/media/536954/view/trachea-epithelium-lm"
+      }
+    ],
+    "references": [
+      {
+        "title": "Recent Advances in Keratinocyte Biology and Wound Healing",
+        "source": "Nature Reviews Molecular Cell Biology",
+        "year": "2023",
+        "type": "Review Article",
+        "url": "https://www.nature.com/articles/s41580-023-00626-7"
+      },
+      {
+        "title": "Keratinocytes in Skin Barrier Function and Disease Pathogenesis",
+        "source": "Journal of Investigative Dermatology",
+        "year": "2023",
+        "type": "Research Paper",
+        "url": "https://www.jidonline.org/article/S0022-202X(23)00001-2/fulltext"
+      },
+      {
+        "title": "Keratinocyte Differentiation and Epidermal Homeostasis",
+        "source": "Cell Biology International",
+        "year": "2022",
+        "type": "Research Article",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1002/cbin.11845"
+      },
+      {
+        "title": "Keratinocytes in Tissue Engineering and Regenerative Medicine",
+        "source": "Biomaterials Science",
+        "year": "2023",
+        "type": "Research Review",
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2023/bm/d3bm00123a"
+      },
+      {
+        "title": "Keratinocyte Imaging and Microscopy Techniques",
+        "source": "Microscopy Research and Technique",
+        "year": "2023",
+        "type": "Technical Paper",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1002/jemt.24321"
+      },
+      {
+        "title": "Keratinocyte Therapeutic Applications in Dermatology",
+        "source": "Therapeutic Advances in Dermatology",
+        "year": "2023",
+        "type": "Clinical Study",
+        "url": "https://journals.sagepub.com/doi/10.1177/17562864231154321"
+      }
+
+
+
+      Alveolar type I cell
+
+
+      Myosattelite
+      "image_description":"Histology slide is of unipolar neurons in the dorsal root ganglia",
+      "image_reference": [
+        {
+          "source": "Quizlet",
+          "url": "https://quizlet.com/310598787/structural-classification-histology-slide-is-of-unipolar-neurons-in-the-dorsal-root-ganglia-diagram/"
+        }
+      ],

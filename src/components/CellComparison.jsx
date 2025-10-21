@@ -74,25 +74,25 @@ const CellComparison = ({ cells = [], onClose, isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className={`bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-7xl w-full h-[98vh] sm:h-[95vh] overflow-hidden flex flex-col ${
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-1 sm:p-4">
+      <div className={`bg-white dark:bg-gray-900 rounded-lg sm:rounded-2xl shadow-2xl max-w-7xl w-full h-[98vh] sm:h-[95vh] overflow-hidden flex flex-col ${
         isDarkMode ? 'text-white' : 'text-gray-900'
       }`}>
         {/* Header */}
-        <div className="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-          <div>
-            <h2 className="text-2xl font-bold">Cell Comparison Tool</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+        <div className="flex justify-between items-start p-3 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg sm:text-2xl font-bold truncate">Cell Comparison Tool</h2>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 hidden sm:block">
               Select up to 3 cells to compare their properties
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1 sm:gap-2">
             <button
               onClick={clearSelection}
               disabled={selectedCells.length === 0}
-              className="px-4 py-2 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+              className="px-2 sm:px-4 py-1 sm:py-2 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors text-xs sm:text-sm"
             >
-              Clear All
+              Clear
             </button>
             <button
               onClick={onClose}
@@ -104,22 +104,22 @@ const CellComparison = ({ cells = [], onClose, isOpen }) => {
         </div>
 
         {/* Cell Selection */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="text-base font-semibold">Select Cells to Compare</h3>
+        <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+          <div className="flex justify-between items-center mb-2 sm:mb-3">
+            <h3 className="text-sm sm:text-base font-semibold">Select Cells to Compare</h3>
             <div className="text-xs text-gray-600 dark:text-gray-400">
               {filteredCells.length} of {cells.length} cells
             </div>
           </div>
           
           {/* Search Input */}
-          <div className="mb-3">
+          <div className="mb-2 sm:mb-3">
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={handleSearchChange}
-                placeholder="Search cells by name, group, function, or location..."
+                placeholder="Search cells..."
                 className={`w-full px-3 py-2 pl-8 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors text-sm ${
                   isDarkMode 
                     ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
@@ -140,7 +140,7 @@ const CellComparison = ({ cells = [], onClose, isOpen }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 max-h-32 overflow-y-auto">
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-1 sm:gap-2 max-h-24 sm:max-h-32 overflow-y-auto">
             {filteredCells.length > 0 ? (
               filteredCells.map((cell, index) => {
                 const isSelected = selectedCells.find(c => c.name === cell.name);
@@ -149,7 +149,7 @@ const CellComparison = ({ cells = [], onClose, isOpen }) => {
                     key={`${cell.name}-${index}`}
                     onClick={() => handleCellSelect(cell)}
                     disabled={!isSelected && selectedCells.length >= 3}
-                    className={`p-2 rounded-lg border-2 transition-all ${
+                    className={`p-1 sm:p-2 rounded-lg border-2 transition-all ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
@@ -158,7 +158,7 @@ const CellComparison = ({ cells = [], onClose, isOpen }) => {
                     <OptimizedImage
                       src={cell.icon}
                       alt={cell.name}
-                      className="w-6 h-6 mx-auto mb-1"
+                      className="w-4 h-4 sm:w-6 sm:h-6 mx-auto mb-1"
                     />
                     <p className="text-xs text-center font-medium truncate leading-tight">{cell.name}</p>
                   </button>

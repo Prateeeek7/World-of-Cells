@@ -2,6 +2,28 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useSearchIndex } from '../hooks/useSearchIndex';
 
+// Helper function to format content for better display
+const formatSearchContent = (content) => {
+  // Handle null, undefined, or empty content
+  if (!content || typeof content !== 'string') {
+    return 'No description available';
+  }
+  
+  // If it's a string with commas, convert to sentences
+  if (content.includes(',')) {
+    const sentences = content.split(',').map(item => item.trim()).join('. ');
+    return sentences.charAt(0).toUpperCase() + sentences.slice(1) + (sentences.endsWith('.') ? '' : '.');
+  }
+  
+  // Clean up any existing formatting and ensure proper capitalization
+  const cleaned = content.trim();
+  if (cleaned.length === 0) {
+    return 'No description available';
+  }
+  
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+};
+
 const AISearch = ({ cells = [], onCellSelect, onClose, isOpen }) => {
   const { isDarkMode } = useTheme();
   const [query, setQuery] = useState('');
@@ -282,8 +304,10 @@ const AISearch = ({ cells = [], onCellSelect, onClose, isOpen }) => {
                           <h4 className="font-semibold text-blue-600 dark:text-blue-400">
                             {cell.name}
                           </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {cell.group} • {cell.function?.substring(0, 100)}...
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            <span className="font-medium text-blue-600 dark:text-blue-400">{cell.group}</span>
+                            <br />
+                            <span className="text-xs">{(formatSearchContent(cell.function) || 'No description available').substring(0, 120)}...</span>
                           </p>
                         </div>
                       </div>

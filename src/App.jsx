@@ -10,6 +10,7 @@ import { usePWA } from "./hooks/usePWA";
 const GroupPage = React.lazy(() => import("./pages/GroupPage"));
 const CellPage = React.lazy(() => import("./pages/CellPage"));
 const HumanCellIntro = React.lazy(() => import("./pages/HumanCellIntro"));
+const TermsOfUse = React.lazy(() => import("./pages/TermsOfUse"));
 
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
@@ -92,6 +93,7 @@ function App() {
               <Route path="/human-cell" element={<HumanCellIntro />} />
               <Route path="/group/:groupName" element={<GroupPage />} />
               <Route path="/cell/:cellName" element={<CellPage />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
             </Routes>
           </Suspense>
           <PerformanceMonitor />

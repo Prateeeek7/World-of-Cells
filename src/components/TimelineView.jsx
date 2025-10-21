@@ -232,28 +232,28 @@ const TimelineView = ({ cells = [], onClose, isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-      <div className={`bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden ${
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-1 sm:p-4">
+      <div className={`bg-white dark:bg-gray-900 rounded-lg sm:rounded-2xl shadow-2xl max-w-6xl w-full h-[98vh] sm:h-auto sm:max-h-[90vh] overflow-hidden ${
         isDarkMode ? 'text-white' : 'text-gray-900'
       }`}>
         {/* Header */}
-        <div className="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
-          <div>
-            <h2 className="text-2xl font-bold">Cell Biology Timeline</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+        <div className="flex justify-between items-start p-3 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg sm:text-2xl font-bold truncate">Cell Biology Timeline</h2>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 hidden sm:block">
               Explore the evolution of cell biology research
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0 ml-2"
           >
             ✕
           </button>
         </div>
 
         {/* Filters */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
           {/* Indian Discoveries Toggle */}
           <div className="mb-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
             <div className="flex items-center justify-between">
@@ -277,40 +277,42 @@ const TimelineView = ({ cells = [], onClose, isOpen }) => {
               </button>
             </div>
           </div>
-          <div className="mb-4">
-            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Filter by Period:</h3>
-            <div className="flex gap-2 flex-wrap">
+          <div className="mb-3 sm:mb-4">
+            <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Filter by Period:</h3>
+            <div className="flex gap-1 sm:gap-2 flex-wrap">
               {periods.map((period) => (
                 <button
                   key={period.key}
                   onClick={() => setSelectedPeriod(period.key)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
                     selectedPeriod === period.key
                       ? 'bg-blue-500 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {period.label}
-                  <span className="block text-xs opacity-75">{period.range}</span>
+                  <span className="block sm:hidden">{period.label.split(' ')[0]}</span>
+                  <span className="hidden sm:block">{period.label}</span>
+                  <span className="block text-xs opacity-75 hidden sm:block">{period.range}</span>
                 </button>
               ))}
             </div>
           </div>
           
           <div>
-            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Filter by Category:</h3>
-            <div className="flex gap-2 flex-wrap">
+            <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Filter by Category:</h3>
+            <div className="flex gap-1 sm:gap-2 flex-wrap">
               {categories.map((category) => (
                 <button
                   key={category.key}
                   onClick={() => setSelectedCategory(category.key)}
-                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  className={`px-2 sm:px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
                     selectedCategory === category.key
                       ? 'bg-green-500 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {category.label}
+                  <span className="block sm:hidden">{category.label.split(' ')[0]}</span>
+                  <span className="hidden sm:block">{category.label}</span>
                 </button>
               ))}
             </div>
@@ -318,35 +320,35 @@ const TimelineView = ({ cells = [], onClose, isOpen }) => {
         </div>
 
         {/* Timeline */}
-        <div className="p-6 overflow-y-auto max-h-96">
+        <div className="p-3 sm:p-6 overflow-y-auto max-h-[60vh] sm:max-h-96">
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200 dark:bg-blue-800"></div>
+            <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-blue-200 dark:bg-blue-800"></div>
             
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-8">
               {filteredTimeline.map((event, index) => (
                 <div key={index} className="relative flex items-start">
                   {/* Timeline dot */}
-                  <div className={`absolute left-6 w-4 h-4 rounded-full border-4 border-white dark:border-gray-900 z-10 ${
+                  <div className={`absolute left-2 sm:left-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 border-white dark:border-gray-900 z-10 ${
                     event.isIndian ? 'bg-orange-500' : 'bg-blue-500'
                   }`}></div>
                   
                   {/* Content */}
-                  <div className={`ml-16 rounded-lg p-4 flex-1 hover:shadow-md transition-shadow ${
+                  <div className={`ml-6 sm:ml-16 rounded-lg p-3 sm:p-4 flex-1 hover:shadow-md transition-shadow ${
                     event.isIndian 
                       ? 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800' 
                       : 'bg-gray-50 dark:bg-gray-800'
                   }`}>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className={`text-lg font-bold ${
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-1 sm:gap-0">
+                      <h3 className={`text-sm sm:text-lg font-bold ${
                         event.isIndian 
                           ? 'text-orange-600 dark:text-orange-400' 
                           : 'text-blue-600 dark:text-blue-400'
                       }`}>
-                        {event.year} - {event.title}
+                        <span className="hidden sm:inline">{event.year} - </span>{event.title}
                         {event.isIndian && <span className="ml-2">🇮🇳</span>}
                       </h3>
-                      <span className="text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700 px-2 py-1 rounded">
+                      <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700 px-2 py-1 rounded self-start">
                         {event.year}
                       </span>
                     </div>

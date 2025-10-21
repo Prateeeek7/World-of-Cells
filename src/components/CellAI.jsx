@@ -1,6 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import ReactMarkdown from 'react-markdown';
+
+// Helper function to convert array or comma-separated string to proper markdown format
+const formatMarkdownContent = (content) => {
+  if (!content) return 'Unknown';
+  
+  // If it's an array, join with periods and capitalize first letter
+  if (Array.isArray(content)) {
+    const joined = content.join('. ').trim();
+    return joined.charAt(0).toUpperCase() + joined.slice(1) + (joined.endsWith('.') ? '' : '.');
+  }
+  
+  // If it's a string with commas, convert to sentences
+  if (typeof content === 'string' && content.includes(',')) {
+    const sentences = content.split(',').map(item => item.trim()).join('. ');
+    return sentences.charAt(0).toUpperCase() + sentences.slice(1) + (sentences.endsWith('.') ? '' : '.');
+  }
+  
+  // Clean up any existing formatting and ensure proper capitalization
+  if (typeof content === 'string') {
+    const cleaned = content.trim();
+    return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+  
+  return content;
+};
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 
@@ -312,10 +337,10 @@ const CellAI = ({ isOpen, onClose }) => {
                       remarkPlugins={[remarkGfm]}
                       rehypePlugins={[rehypeHighlight]}
                       components={{
-                        h1: ({ children }) => <h1 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-current">{children}</h1>,
-                        h2: ({ children }) => <h2 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-current">{children}</h2>,
-                        h3: ({ children }) => <h3 className="text-xs sm:text-sm font-semibold mb-1 text-current">{children}</h3>,
-                        p: ({ children }) => <p className="mb-1 sm:mb-2 text-xs sm:text-sm text-current">{children}</p>,
+                        h1: ({ children }) => <h1 className="text-base sm:text-lg font-bold mb-2 sm:mb-3 text-current">{children}</h1>,
+                        h2: ({ children }) => <h2 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3 text-current">{children}</h2>,
+                        h3: ({ children }) => <h3 className="text-xs sm:text-sm font-semibold mb-2 sm:mb-3 text-current">{children}</h3>,
+                        p: ({ children }) => <p className="mb-2 sm:mb-3 text-xs sm:text-sm leading-relaxed text-current break-words">{children}</p>,
                         ul: ({ children }) => <ul className="list-disc list-inside mb-1 sm:mb-2 space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-current">{children}</ul>,
                         ol: ({ children }) => <ol className="list-decimal list-inside mb-1 sm:mb-2 space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-current">{children}</ol>,
                         li: ({ children }) => <li className="text-xs sm:text-sm text-current">{children}</li>,
@@ -329,7 +354,7 @@ const CellAI = ({ isOpen, onClose }) => {
                         em: ({ children }) => <em className="italic text-current">{children}</em>,
                       }}
                     >
-                      {message.content}
+                      {formatMarkdownContent(message.content)}
                     </ReactMarkdown>
                   ) : (
                     <div className="whitespace-pre-wrap text-xs sm:text-sm">{message.content}</div>

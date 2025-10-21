@@ -1,6 +1,24 @@
 import React, { useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+
+// Helper function to convert array or comma-separated string to paragraph format
+const formatMarkdownContent = (content) => {
+  if (!content) return 'Unknown';
+  
+  // If it's an array, join with periods to form a paragraph
+  if (Array.isArray(content)) {
+    return content.join('. ') + '.';
+  }
+  
+  // If it's a string with commas, convert to paragraph format
+  if (typeof content === 'string' && content.includes(',')) {
+    return content.split(',').map(item => item.trim()).join('. ') + '.';
+  }
+  
+  // Return as is if it's already a proper string
+  return content;
+};
 import { useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import OptimizedImage from "../components/OptimizedImage";
@@ -26,10 +44,8 @@ const cellGroupTypes = {
     { name: "Mesothelial cell", icon: "/icons/E1.png" },
     { name: "Alveolar type I cell", icon: "/icons/E1.png" },
     { name: "Alveolar type II cell", icon: "/icons/E1.png" },
-    { name: "Ciliated airway cell", icon: "/icons/E1.png" },
     { name: "Club cell", icon: "/icons/E1.png" },
     { name: "Hepatocyte", icon: "/icons/E1.png" },
-    { name: "Cholangiocyte", icon: "/icons/E1.png" },
     { name: "Collecting duct principal cell", icon: "/icons/E1.png" },
     { name: "Intercalated cell (kidney)", icon: "/icons/E1.png" },
     { name: "Oral keratinocyte", icon: "/icons/E1.png" },
@@ -57,10 +73,7 @@ const cellGroupTypes = {
     { name: "Periodontal ligament cell", icon: "/icons/E1.png" },
     { name: "Taste bud cell", icon: "/icons/E1.png" },
     { name: "Respiratory epithelial cell", icon: "/icons/E1.png" },
-    { name: "Pulmonary neuroendocrine cell", icon: "/icons/E1.png" },
-    { name: "Enteroendocrine cell", icon: "/icons/E1.png" },
     { name: "Microfold cell (M cell)", icon: "/icons/E1.png" },
-    { name: "Intestinal stem cell", icon: "/icons/E1.png" },
     { name: "Retinal pigment epithelium (RPE) cell", icon: "/icons/E1.png" },
     { name: "Lens epithelial cell", icon: "/icons/E1.png" },
     { name: "Lens fiber cell", icon: "/icons/E1.png" },
@@ -163,9 +176,9 @@ const cellGroupTypes = {
   { name: "Corneal fibroblasts (corneal keratocytes)", icon: "/icons/connective.png" },
   { name: "White Adipocyte", icon: "/icons/connective.png" },
   { name: "Brown Adipocyte", icon: "/icons/connective.png" },
-  { name: "Chondrocyte", icon: "/icons/connective.png" },
-  { name: "Osteoblast", icon: "/icons/connective.png" },
-  { name: "Osteocyte", icon: "/icons/connective.png" },
+  // { name: "Chondrocyte", icon: "/icons/connective.png" },
+  // { name: "Osteoblast", icon: "/icons/connective.png" },
+  // { name: "Osteocyte", icon: "/icons/connective.png" },
   { name: "Preadipocyte", icon: "/icons/connective.png" },
   { name: "Podocyte", icon: "/icons/connective.png" },
   { name: "Stromal cell", icon: "/icons/connective.png" },
@@ -197,7 +210,7 @@ const cellGroupTypes = {
   { name: "Bone lining cell", icon: "/icons/skeletal.png" },
   { name: "Osteoclast", icon: "/icons/skeletal.png" },
   { name: "Chondroclast", icon: "/icons/skeletal.png" },
-  { name: "Osteochondroprogenitor Cell", icon: "/icons/skeletal.png" }
+  { name: "Osteochondroprogenitor cell", icon: "/icons/skeletal.png" }
 ]
 ,
   "gastrointestinal": [
@@ -220,7 +233,6 @@ const cellGroupTypes = {
   { name: "Ciliated airway cell", icon: "/icons/thoracic.png" },
   { name: "Goblet cell (respiratory)", icon: "/icons/thoracic.png" },
   { name: "Bronchial epithelial cell", icon: "/icons/thoracic.png" },
-  { name: "Alveolar macrophage", icon: "/icons/thoracic.png" },
   { name: "Pulmonary endothelial cell", icon: "/icons/thoracic.png" },
   { name: "Tracheal epithelial cell", icon: "/icons/thoracic.png" }
   ],
@@ -286,19 +298,19 @@ const groupDescriptions = {
 
   ,"muscular": "**Muscle cells** (_myocytes_) are elongated cells that contract using `actin` and `myosin`, enabling **movement** and **force generation**. They come in three types: **skeletal** (voluntary, striated), **cardiac** (involuntary, striated with intercalated discs), and **smooth** (involuntary, non-striated). These cells are specialized for **excitability**, **contractility**, and **elasticity**, relying heavily on `ATP` and blood supply. Disorders like _muscular dystrophy_ or _cardiomyopathies_ impair their function."
 
-  ,"nervous & sensory": "**Nervous cells**, or _neurons_, are highly specialized cells that make up the core functional units of the **nervous system**, responsible for **transmitting** and **processing information** throughout the body. Each neuron consists of a **cell body** (`soma`), **dendrites** that receive signals, and a **single axon** that transmits electrical impulses to other neurons, muscles, or glands. They communicate via **electrochemical signals** using electrical impulses (`action potentials`) and chemical messengers (`neurotransmitters`) at **synapses**. Alongside neurons, **glial cells** provide support, protection, and nourishment. Nervous cells regulate activities like **sensation**, **movement**, **cognition**, and **emotion**, but have limited regenerative ability, making damage serious. They form the **central nervous system** (brain and spinal cord) and **peripheral nervous system** (nerves), working together to sense stimuli, process data, and initiate responses, thus governing nearly all body functions and behavior."
+  ,"nervous and sensory": "**Nervous cells**, or _neurons_, are highly specialized cells that make up the core functional units of the **nervous system**, responsible for **transmitting** and **processing information** throughout the body. Each neuron consists of a **cell body** (`soma`), **dendrites** that receive signals, and a **single axon** that transmits electrical impulses to other neurons, muscles, or glands. They communicate via **electrochemical signals** using electrical impulses (`action potentials`) and chemical messengers (`neurotransmitters`) at **synapses**. Alongside neurons, **glial cells** provide support, protection, and nourishment. Nervous cells regulate activities like **sensation**, **movement**, **cognition**, and **emotion**, but have limited regenerative ability, making damage serious. They form the **central nervous system** (brain and spinal cord) and **peripheral nervous system** (nerves), working together to sense stimuli, process data, and initiate responses, thus governing nearly all body functions and behavior."
 
   ,"hematopoietic": "**Blood cells** are specialized cells in plasma that perform vital functions in the **circulatory system**, including **oxygen transport**, **immune defense**, and **clotting**. Main types are **red blood cells** (`erythrocytes`), **white blood cells** (`leukocytes`), and **platelets** (`thrombocytes`). Red cells are biconcave, lack nuclei, and carry oxygen via **hemoglobin**. White cells protect against pathogens and include types like **neutrophils**, **lymphocytes**, and **monocytes**, each with specific roles. Platelets are fragments that help with **clotting** by forming plugs and releasing clotting factors. All originate from **hematopoietic stem cells** in the **bone marrow** and circulate via blood vessels. Constantly renewed, they are essential for **homeostasis**, injury response, and oxygen delivery. Disruptions can cause conditions like _anemia_, _infection_, or _leukemia_."
 
   ,"gastrointestinal": "**Gastrointestinal (GI) cells**, including those from the _liver_ and _pancreas_, specialize in **digestion**, **absorption**, **enzyme secretion**, **detoxification**, and **hormone regulation**. In the stomach and intestines, key types include **enterocytes** (`absorb nutrients`), **goblet cells** (`secrete mucus`), **Paneth cells** (`release antimicrobial peptides`), **enteroendocrine cells** (`digestive hormones`), **parietal** and **chief cells** (`acid and enzymes`). In the **liver**, **hepatocytes** handle `metabolism`, `bile production`, and `detoxification`, while **Kupffer cells** (`macrophages`) and **stellate cells** (`vitamin A storage`) aid immunity and repair. **Pancreatic acinar cells** secrete digestive enzymes, **ductal cells** transport them, and **islets of Langerhans** regulate blood sugar via **alpha**, **beta**, and **delta cells**. Together, GI cells maintain **digestive health**, **metabolism**, and **immunity**."
 
-  ,"stem and progenitory": "**Stem cells** are unique, undifferentiated cells capable of **self-renewal** and **differentiation** into specialized cell types, crucial for growth, repair, and regeneration. They vary by potential: **totipotent** (all cells including embryonic), **pluripotent** (any body cell), and **multipotent** (limited families like blood or nerve). They also vary by source: **embryonic**, **adult (somatic)**, and **induced pluripotent stem cells (iPSCs)**—adult cells genetically reprogrammed. Stem cells drive **tissue maintenance**, healing, and are central to **regenerative medicine**, targeting conditions like **spinal injuries**, **blood disorders**, and **neurodegeneration**."
+  ,"stem & progenitory": "**Stem cells** are unique, undifferentiated cells capable of **self-renewal** and **differentiation** into specialized cell types, crucial for growth, repair, and regeneration. They vary by potential: **totipotent** (all cells including embryonic), **pluripotent** (any body cell), and **multipotent** (limited families like blood or nerve). They also vary by source: **embryonic**, **adult (somatic)**, and **induced pluripotent stem cells (iPSCs)**—adult cells genetically reprogrammed. Stem cells drive **tissue maintenance**, healing, and are central to **regenerative medicine**, targeting conditions like **spinal injuries**, **blood disorders**, and **neurodegeneration**."
 
   ,"thoracic": "**Thoracic cells** reside in the **lungs**, **trachea**, **bronchi**, and **pleura**, supporting **breathing**, **gas exchange**, and **defense**. **Alveolar Type I cells** manage `gas exchange`, and **Type II cells** secrete `surfactant` to keep alveoli open. **Bronchial epithelial cells** like **ciliated** and **goblet cells** remove dust/microbes with mucus and cilia. **Club (Clara) cells** in bronchioles detoxify and assist in repair. **Pulmonary endothelial cells** regulate capillary `gas/fluid exchange`. **Pleural mesothelial cells** reduce friction via `fluid secretion`. Collectively, they sustain **respiratory function** and shield against environmental hazards."
 
   ,"connective": "**Connective tissue cells** form the body's **structural framework**, supporting, binding, and protecting organs. Embedded in an **extracellular matrix** of fibers (e.g., **collagen**, **elastin**) and ground substance, they include **fibroblasts** (make matrix), **adipocytes** (store fat), **chondrocytes** (cartilage), and **osteocytes** (bone). Also present are **macrophages**, **mast cells**, **plasma cells**, and **leukocytes** that handle **immunity** and **inflammation**. Based on type—loose, dense, cartilage, bone, blood—connective cells handle **support**, **repair**, **protection**, and **communication** across tissues."
 
-  ,"secretory & hormone": "**Endocrine cells** secrete **hormones** into the bloodstream or interstitial fluid, regulating processes like **metabolism**, **growth**, and **homeostasis**. Unlike **exocrine cells** that use ducts, endocrine cells release internally for **systemic effect**. They exist alone (e.g., **enteroendocrine cells**) or in glands (e.g., **thyroid**, **adrenal**), featuring **vesicles**, **rough ER**, and **Golgi** for protein synthesis. Operated by **feedback loops** (mainly negative feedback), they maintain **hormonal balance**. Dysfunctions can cause **endocrine disorders**, underlining their importance in internal regulation."
+  ,"secretory and hormone": "**Endocrine cells** secrete **hormones** into the bloodstream or interstitial fluid, regulating processes like **metabolism**, **growth**, and **homeostasis**. Unlike **exocrine cells** that use ducts, endocrine cells release internally for **systemic effect**. They exist alone (e.g., **enteroendocrine cells**) or in glands (e.g., **thyroid**, **adrenal**), featuring **vesicles**, **rough ER**, and **Golgi** for protein synthesis. Operated by **feedback loops** (mainly negative feedback), they maintain **hormonal balance**. Dysfunctions can cause **endocrine disorders**, underlining their importance in internal regulation."
 
   ,"immune": "**Immune cells** (a.k.a. **white blood cells** or **leukocytes**) defend against **pathogens**, **toxins**, and **abnormal cells**. Divided into **innate** (fast, non-specific: `neutrophils`, `macrophages`, `NK cells`, `dendritic cells`, `mast cells`) and **adaptive** (slow, specific: `T cells`, `B cells`) arms. **T cells** kill infected cells or coordinate responses; **B cells** produce **antibodies**. These cells move through **blood**, **lymph**, and **lymphoid organs** (e.g., **spleen**, **nodes**, **bone marrow**), communicating via **cytokines**. They're vital for **infection defense**, **cancer surveillance**, and **immune tolerance**. Malfunction leads to **autoimmunity**, **immunodeficiency**, or **chronic inflammation**."
 
@@ -358,7 +370,7 @@ const GroupPage = () => {
               p: ({children}) => <p className="mb-2">{children}</p>
             }}
           >
-            {description}
+            {formatMarkdownContent(description)}
           </ReactMarkdown>
         </div>
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl mt-4 mb-8 justify-center">
@@ -371,13 +383,15 @@ const GroupPage = () => {
               <button
                 key={cell.name}
                 onClick={() => handleCellClick(cell.name)}
-                className="group w-full flex items-center justify-center gap-3 bg-[#5a2328] text-white rounded-2xl shadow-lg hover:bg-[#43181c] active:bg-[#2e0d10] focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-lg font-semibold min-h-[56px] px-3 py-2"
+                className="group w-full flex items-center justify-center bg-[#5a2328] text-white rounded-2xl shadow-lg hover:bg-[#43181c] active:bg-[#2e0d10] focus:outline-none focus:ring-2 focus:ring-[#7a3b3f] transition-all duration-200 text-lg font-semibold min-h-[56px] px-3 py-2"
               >
-                <OptimizedImage 
-                  src={cell.icon} 
-                  alt={cell.name + ' icon'} 
-                  className="w-10 h-10 object-contain flex-shrink-0 drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" 
-                />
+                <div className="mr-5 flex-shrink-0">
+                  <OptimizedImage 
+                    src={cell.icon} 
+                    alt={cell.name + ' icon'} 
+                    className="w-10 h-10 object-contain drop-shadow group-hover:scale-110 group-active:scale-95 transition-transform duration-200" 
+                  />
+                </div>
                 <span className="truncate">{cell.name}</span>
               </button>
             ))
