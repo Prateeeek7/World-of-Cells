@@ -163,7 +163,7 @@ const Preloader = ({ onComplete }) => {
               <img
                 src="/images/logo.png"
                 alt="World of Cells Logo"
-                className="w-16 h-10 xs:w-20 xs:h-12 sm:w-24 sm:h-16 md:w-32 md:h-20 lg:w-40 lg:h-24 mx-auto object-contain"
+                className="w-32 h-20 xs:w-40 xs:h-24 sm:w-48 sm:h-32 md:w-64 md:h-40 lg:w-80 lg:h-48 mx-auto object-contain"
               />
             </motion.div>
 
