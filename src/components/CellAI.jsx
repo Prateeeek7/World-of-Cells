@@ -160,6 +160,11 @@ const CellAI = ({ isOpen, onClose }) => {
         ]
       };
       
+      // Check if API key is available
+      if (!process.env.REACT_APP_GROQ_API_KEY) {
+        throw new Error('AI service is currently unavailable. Please try again later.');
+      }
+      
       console.log('Request body:', JSON.stringify(requestBody, null, 2));
       console.log('API Key (first 10 chars):', process.env.REACT_APP_GROQ_API_KEY?.substring(0, 10) || 'Not set');
       
